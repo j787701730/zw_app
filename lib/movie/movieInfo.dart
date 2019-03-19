@@ -44,19 +44,31 @@ class _MovieInfoState extends State<MovieInfo> with AutomaticKeepAliveClientMixi
       String pubdateTmp = '';
       if (data['directors'] != null) {
         for (var director in data['directors']) {
-          roleTmp += '/${director['name']}(导演)';
+          if (data['directors'].indexOf(director) == 0) {
+            roleTmp += ' ${director['name']}(导演)';
+          } else {
+            roleTmp += ' / ${director['name']}(导演)';
+          }
         }
       }
 
       if (data['casts'] != null) {
         for (var cast in data['casts']) {
-          roleTmp += '/${cast['name']}(演员)';
+          if (data['casts'].indexOf(cast) == data['casts'].length - 1) {
+            roleTmp += ' / ${cast['name']}(演员) / ';
+          } else {
+            roleTmp += ' / ${cast['name']}(演员)';
+          }
         }
       }
 
       if (data['pubdates'] != null) {
         for (var pubdate in data['pubdates']) {
-          pubdateTmp += '$pubdate/';
+          if (data['pubdates'].indexOf(pubdate) == data['pubdates'].length - 1) {
+            roleTmp += '$pubdate(上映)';
+          } else {
+            roleTmp += '$pubdate(上映) / ';
+          }
         }
       }
 
@@ -223,8 +235,7 @@ class _MovieInfoState extends State<MovieInfo> with AutomaticKeepAliveClientMixi
                             children: info['photos'].map<Widget>((item) {
                               return Container(
                                 padding: EdgeInsets.only(right: 10),
-                                width: 200,
-                                height: 120,
+                                height: 130,
                                 child: InkWell(
                                   onTap: () {
                                     Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) {
@@ -232,9 +243,10 @@ class _MovieInfoState extends State<MovieInfo> with AutomaticKeepAliveClientMixi
                                     }));
                                   },
                                   child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     children: <Widget>[
                                       Container(
-                                        height: 120,
+                                        height: 130,
                                         child: Image.network(
                                           item['thumb'],
                                           fit: BoxFit.fitHeight,
@@ -249,14 +261,21 @@ class _MovieInfoState extends State<MovieInfo> with AutomaticKeepAliveClientMixi
                         ),
                   Container(
                     padding: EdgeInsets.only(bottom: 10, top: 15),
-                    child: InkWell(
-                      child: Text('$title的短评(${info['comments_count']}) 查看更多',
-                        style: TextStyle(color: Colors.black38),),
-                      onTap: (){
-                        Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) {
-                          return new Reviews({'id': info['id'], 'title': info['title']});
-                        }));
-                      },
+                    child: Row(
+                      children: <Widget>[
+                        Text('$title的短评(${info['comments_count']}) ', style: TextStyle(color: Colors.black38)),
+                        InkWell(
+                          child: Text(
+                            '查看更多',
+                            style: TextStyle(color: Colors.blue),
+                          ),
+                          onTap: () {
+                            Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) {
+                              return new Reviews({'id': info['id'], 'title': info['title']});
+                            }));
+                          },
+                        )
+                      ],
                     ),
                   ),
                   Column(
@@ -305,6 +324,7 @@ class _MovieInfoState extends State<MovieInfo> with AutomaticKeepAliveClientMixi
                                 ),
                               ),
                               Container(
+                                padding: EdgeInsets.only(top: 4),
                                 child: Text(item['content']),
                               )
                             ],
@@ -314,13 +334,24 @@ class _MovieInfoState extends State<MovieInfo> with AutomaticKeepAliveClientMixi
                     }).toList(),
                   ),
                   Container(
-                    child: InkWell(
-                      onTap: (){
-                        Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) {
-                          return new Comments({'id': info['id'], 'title': info['title']});
-                        }));
-                      },
-                      child: Text('$title的影评(${info['reviews_count']}) 查看更多'),
+                    child: Row(
+                      children: <Widget>[
+                        Text(
+                          '$title的影评(${info['reviews_count']}) ',
+                          style: TextStyle(color: Colors.black38),
+                        ),
+                        InkWell(
+                          onTap: () {
+                            Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) {
+                              return new Comments({'id': info['id'], 'title': info['title']});
+                            }));
+                          },
+                          child: Text(
+                            '查看更多',
+                            style: TextStyle(color: Colors.blue),
+                          ),
+                        )
+                      ],
                     ),
                   ),
                   Column(
@@ -366,10 +397,17 @@ class _MovieInfoState extends State<MovieInfo> with AutomaticKeepAliveClientMixi
                                 ),
                               ),
                               Container(
-                                child: Text(item['title']),
+                                padding: EdgeInsets.only(top: 4, bottom: 4),
+                                child: Text(
+                                  item['title'],
+                                  style: TextStyle(color: Color.fromRGBO(51, 119, 170, 1)),
+                                ),
                               ),
                               Container(
-                                child: Text(item['summary']),
+                                child: Text(
+                                  item['summary'],
+                                  style: TextStyle(),
+                                ),
                               )
                             ],
                           ),
