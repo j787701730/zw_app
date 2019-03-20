@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'movie/home.dart';
 import 'weather/home.dart';
+import 'livideo/home.dart';
 
 class Index extends StatelessWidget {
   DateTime _lastPressedAt;
@@ -26,6 +27,13 @@ class Index extends StatelessWidget {
                   onTap: () {
                     Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) {
                       return new WeatherHome();
+                    }));
+                  },
+                ),ListTile(
+                  title: Text('视频'),
+                  onTap: () {
+                    Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) {
+                      return new LiHome();
                     }));
                   },
                 ),
