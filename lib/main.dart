@@ -8,7 +8,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'zw_movie',
+      title: 'zw_app',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primarySwatch: Colors.blue, platform: TargetPlatform.iOS),
       home: SplashPage(),
