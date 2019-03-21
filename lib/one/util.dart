@@ -3,13 +3,7 @@ import 'package:flutter/material.dart';
 
 const key = '?channel=wdj&version=4.5.0&uuid=ffffffff-a90e-706a-63f7-ccf973aae5e1&platform=android';
 
-const type = [
-  {'id': '1', 'name': 'ONE STORY'},
-  {'id': '2', 'name': '连载'},
-  {'id': '3', 'name': '问答'},
-  {'id': '4', 'name': '音乐'},
-  {'id': '5', 'name': '影视'},
-];
+const category = {'1': 'ONE STORY', '2': '连载', '3': '问答', '4': '音乐', '5': '影视'};
 
 ajax(String url, sucFun) async {
   print("$url$key");

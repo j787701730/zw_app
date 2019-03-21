@@ -85,10 +85,230 @@ class _OneHomeState extends State<OneHome> {
                 ),
                 Container(
                   child: Column(
-                    children: oneList['content_list'].map<Widget>((list){
-//                      return ListTile(
-//                        title: ,
-//                      );
+                    children: oneList['content_list'].map<Widget>((list) {
+                      switch (list['category']) {
+                        case '0':
+                          return ListTile(
+                            title: Column(
+                              children: <Widget>[
+                                Container(
+                                  child: Image.network(
+                                    list['img_url'],
+                                    fit: BoxFit.fitWidth,
+                                  ),
+                                ),
+                                Container(
+                                  child: Center(
+                                    child: Text('${list['title']} | ${list['pic_info']}'),
+                                  ),
+                                ),
+                                Container(
+                                  child: Text(list['forward']),
+                                ),
+                                Container(
+                                  child: Text(list['words_info']),
+                                ),
+                              ],
+                            ),
+                          );
+                          break;
+                        case '1':
+                          return ListTile(
+                            title: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Center(
+                                  child: Text('-- ${category[list['category']]} --'),
+                                ),
+                                Container(
+                                  child: Text('${list['title']} | ${list['pic_info']}'),
+                                ),
+                                Container(
+                                  child: Text('文 / ${list['author']['user_name']}'),
+                                ),
+                                Container(
+                                  child: Image.network(
+                                    list['img_url'],
+                                    fit: BoxFit.fitWidth,
+                                  ),
+                                ),
+                                Container(
+                                  child: Text(list['forward']),
+                                  padding: EdgeInsets.only(bottom: 10),
+                                ),
+                                Container(
+                                  height: 3,
+                                  color: Colors.black38,
+                                )
+                              ],
+                            ),
+                          );
+                          break;
+                        case '2':
+                          return ListTile(
+                            title: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Center(
+                                  child: Text('-- ${category[list['category']]} --'),
+                                ),
+                                Container(
+                                  child: Text('${list['title']} | ${list['pic_info']}'),
+                                ),
+                                Container(
+                                  child: Text('文 / ${list['author']['user_name']}'),
+                                ),
+                                Container(
+                                  child: Image.network(
+                                    list['img_url'],
+                                    fit: BoxFit.fitWidth,
+                                  ),
+                                ),
+                                Container(
+                                  child: Text(list['forward']),
+                                  padding: EdgeInsets.only(bottom: 10),
+                                ),
+                                Container(
+                                  height: 3,
+                                  color: Colors.black38,
+                                )
+                              ],
+                            ),
+                          );
+                          break;
+                        case '3':
+                          return ListTile(
+                            title: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Center(
+                                  child: Text('-- ${category[list['category']]} --'),
+                                ),
+                                Container(
+                                  child: Text('${list['title']} | ${list['pic_info']}'),
+                                ),
+                                Container(
+                                  child: Text('${list['answerer']['user_name']}答'),
+                                ),
+                                Container(
+                                  child: Image.network(
+                                    list['img_url'],
+                                    fit: BoxFit.fitWidth,
+                                  ),
+                                ),
+                                Container(
+                                  child: Text(list['forward']),
+                                  padding: EdgeInsets.only(bottom: 10),
+                                ),
+                                Container(
+                                  height: 3,
+                                  color: Colors.black38,
+                                )
+                              ],
+                            ),
+                          );
+                          break;
+                        case '4':
+                          return ListTile(
+                            title: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Center(
+                                  child: Text('-- ${category[list['category']]} --'),
+                                ),
+                                Container(
+                                  child: Text('${list['title']} | ${list['pic_info']}'),
+                                ),
+                                Container(
+                                  child: Text('文 / ${list['author']['user_name']}'),
+                                ),
+                                Center(
+                                  child: SizedBox(
+                                    width: MediaQuery.of(context).size.width / 3,
+                                    height: MediaQuery.of(context).size.width / 3,
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                          image: DecorationImage(
+                                              image: NetworkImage(
+                                            list['img_url'],
+                                          )),
+                                          borderRadius:
+                                              BorderRadius.all(Radius.circular(MediaQuery.of(context).size.width / 3))),
+                                      child: Center(
+                                        child: Icon(
+                                          Icons.play_circle_outline,
+                                          color: Color.fromRGBO(255, 255, 255, 0.6),
+                                          size: 50,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Container(
+                                  child: Text(
+                                    '${list['music_name']} ·${list['audio_author']} | ${list['audio_album']}',
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                  padding: EdgeInsets.only(bottom: 10),
+                                ),
+                                Container(
+                                  child: Text(list['forward']),
+                                  padding: EdgeInsets.only(bottom: 10),
+                                ),
+                                Container(
+                                  height: 3,
+                                  color: Colors.black38,
+                                )
+                              ],
+                            ),
+                          );
+                          break;
+                        case '5':
+                          return ListTile(
+                            title: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Center(
+                                  child: Text('-- ${category[list['category']]} --'),
+                                ),
+                                Container(
+                                  child: Text('${list['title']} | ${list['pic_info']}'),
+                                ),
+                                Container(
+                                  child: Text('文 / ${list['author']['user_name']}'),
+                                ),
+                                Container(
+                                  child: Image.network(
+                                    list['img_url'],
+                                    fit: BoxFit.fitWidth,
+                                  ),
+                                ),
+                                Container(
+                                  child: Text(list['forward']),
+                                  padding: EdgeInsets.only(bottom: 10),
+                                ),
+                                Container(
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: <Widget>[Text('————《${list['subtitle']}》')],
+                                  ),
+                                ),
+                                Container(
+                                  height: 3,
+                                  color: Colors.black38,
+                                )
+                              ],
+                            ),
+                          );
+                          break;
+                        default:
+                          return Placeholder(
+                            fallbackHeight: 1,
+                            color: Colors.transparent,
+                          );
+                          break;
+                      }
                     }).toList(),
                   ),
                 )
