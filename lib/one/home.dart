@@ -3,6 +3,7 @@ import 'util.dart';
 import 'musicPlayer.dart';
 import 'dart:convert';
 import '../pageLoading.dart';
+import 'articleContent.dart';
 
 class OneHome extends StatefulWidget {
   @override
@@ -114,6 +115,11 @@ class _OneHomeState extends State<OneHome> {
                           break;
                         case '1':
                           return ListTile(
+                            onTap: () {
+                              Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) {
+                                return new ArticleContent({'item_id': list['item_id'],'title':list['title'],'share_url':list['share_url']});
+                              }));
+                            },
                             title: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
@@ -232,8 +238,7 @@ class _OneHomeState extends State<OneHome> {
                                               image: NetworkImage(
                                             list['img_url'],
                                           )),
-                                          borderRadius:
-                                              BorderRadius.all(Radius.circular(MediaQuery.of(context).size.width / 3))),
+                                          borderRadius: BorderRadius.all(Radius.circular(MediaQuery.of(context).size.width / 3))),
                                       child: Center(
                                         child: Icon(
                                           Icons.play_circle_outline,
