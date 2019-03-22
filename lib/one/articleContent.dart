@@ -6,7 +6,10 @@ import 'dart:convert';
 //import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 //import 'package:flutter_html/flutter_html.dart';
 //import 'package:html/dom.dart' as dom;
-import 'html.dart';
+//import 'html.dart';
+import 'package:flutter_html/flutter_html.dart';
+import 'package:html/dom.dart' as dom;
+
 
 class ArticleContent extends StatefulWidget {
   final params;
@@ -57,8 +60,8 @@ class _ArticleContentState extends State<ArticleContent> {
                 Container(
                   child: Text('文 / ${article['hp_author']}'),
                 ),
-                NewsDetailsWeb(body: article['hp_content']),
-
+//                NewsDetailsWeb(body: article['hp_content']),
+                Html(data: article['hp_content'],padding: EdgeInsets.all(8),)
 //                Html(
 //                  data: article['hp_content'],
 //                  padding: EdgeInsets.all(8.0),
