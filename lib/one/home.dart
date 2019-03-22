@@ -68,16 +68,8 @@ class _OneHomeState extends State<OneHome> {
           : ListView(
               children: <Widget>[
                 Container(
-                  child: FlatButton(
-                      onPressed: () {
-                        _getonelist();
-                      },
-                      child: Text('one')),
-                ),
-//          MusicPlayer(
-//            url: mp3,
-//          )
-                Container(
+                  padding: EdgeInsets.only(left: 15, right: 15, top: 15),
+                  decoration: BoxDecoration(color: Colors.white),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
@@ -94,6 +86,7 @@ class _OneHomeState extends State<OneHome> {
                       switch (list['category']) {
                         case '0':
                           return ListTile(
+                            contentPadding: EdgeInsets.only(left: 0, right: 0),
                             title: Column(
                               children: <Widget>[
                                 Container(
@@ -103,52 +96,79 @@ class _OneHomeState extends State<OneHome> {
                                   ),
                                 ),
                                 Container(
+                                  padding: EdgeInsets.only(top: 15, bottom: 15),
                                   child: Center(
-                                    child: Text('${list['title']} | ${list['pic_info']}'),
+                                    child: Text(
+                                      '${list['title']} | ${list['pic_info']}',
+                                      style: TextStyle(fontSize: 12, color: Colors.black38),
+                                    ),
                                   ),
                                 ),
                                 Container(
-                                  child: Text(list['forward']),
+                                  padding: EdgeInsets.only(left: 30, right: 30),
+                                  child: Text(
+                                    list['forward'],
+                                    style: TextStyle(fontSize: 14),
+                                  ),
                                 ),
                                 Container(
-                                  child: Text(list['words_info']),
+                                  padding: EdgeInsets.only(top: 15, bottom: 15),
+                                  child: Text(
+                                    list['words_info'],
+                                    style: TextStyle(fontSize: 12, color: Colors.black38),
+                                  ),
                                 ),
+                                Container(
+                                  height: 4,
+                                  color: Colors.black12,
+                                )
                               ],
                             ),
                           );
                           break;
                         case '1':
                           return ListTile(
+                            contentPadding: EdgeInsets.only(left: 0, right: 0),
                             onTap: () {
                               Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) {
-                                return new ArticleContent({'item_id': list['item_id'],'title':list['title'],'share_url':list['share_url']});
+                                return new ArticleContent(
+                                    {'item_id': list['item_id'], 'title': list['title'], 'share_url': list['share_url']});
                               }));
                             },
                             title: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
                                 Center(
-                                  child: Text('-- ${category[list['category']]} --'),
+                                  child: Text('-- ${category[list['category']]} --', style: TextStyle(fontSize: 12, color: Colors.black38)),
                                 ),
                                 Container(
-                                  child: Text('${list['title']} | ${list['pic_info']}'),
+                                  padding: EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
+                                  child: Text(
+                                    '${list['title']}',
+                                    style: TextStyle(fontSize: 18),
+                                  ),
                                 ),
                                 Container(
-                                  child: Text('文 / ${list['author']['user_name']}'),
+                                  padding: EdgeInsets.only(left: 20, right: 20, bottom: 10),
+                                  child: Text('文 / ${list['author']['user_name']}', style: TextStyle(fontSize: 12, color: Colors.black38)),
                                 ),
                                 Container(
+                                  padding: EdgeInsets.only(left: 20, right: 20),
                                   child: Image.network(
                                     list['img_url'],
                                     fit: BoxFit.fitWidth,
                                   ),
                                 ),
                                 Container(
-                                  child: Text(list['forward']),
-                                  padding: EdgeInsets.only(bottom: 10),
+                                  padding: EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
+                                  child: Text(
+                                    list['forward'],
+                                    style: TextStyle(fontSize: 14, color: Colors.black38, height: 1.5),
+                                  ),
                                 ),
                                 Container(
-                                  height: 3,
-                                  color: Colors.black38,
+                                  height: 4,
+                                  color: Colors.black12,
                                 )
                               ],
                             ),
@@ -156,36 +176,44 @@ class _OneHomeState extends State<OneHome> {
                           break;
                         case '2':
                           return ListTile(
+                            contentPadding: EdgeInsets.only(left: 0, right: 0),
                             onTap: () {
                               Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) {
-                                return new SerialContent({'item_id': list['item_id'],'title':list['title'],'share_url':list['share_url']});
+                                return new SerialContent(
+                                    {'item_id': list['item_id'], 'title': list['title'], 'share_url': list['share_url']});
                               }));
                             },
                             title: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
                                 Center(
-                                  child: Text('-- ${category[list['category']]} --'),
+                                  child: Text('-- ${category[list['category']]} --', style: TextStyle(fontSize: 12, color: Colors.black38)),
                                 ),
                                 Container(
-                                  child: Text('${list['title']} | ${list['pic_info']}'),
+                                  padding: EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
+                                  child: Text('${list['title']}', style: TextStyle(fontSize: 18)),
                                 ),
                                 Container(
-                                  child: Text('文 / ${list['author']['user_name']}'),
+                                  padding: EdgeInsets.only(left: 20, right: 20, bottom: 10),
+                                  child: Text('文 / ${list['author']['user_name']}', style: TextStyle(fontSize: 12, color: Colors.black38)),
                                 ),
                                 Container(
+                                  padding: EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
                                   child: Image.network(
                                     list['img_url'],
                                     fit: BoxFit.fitWidth,
                                   ),
                                 ),
                                 Container(
-                                  child: Text(list['forward']),
-                                  padding: EdgeInsets.only(bottom: 10),
+                                  child: Text(
+                                    list['forward'],
+                                    style: TextStyle(fontSize: 14, color: Colors.black38, height: 1.5),
+                                  ),
+                                  padding: EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
                                 ),
                                 Container(
-                                  height: 3,
-                                  color: Colors.black38,
+                                  height: 4,
+                                  color: Colors.black12,
                                 )
                               ],
                             ),
@@ -193,36 +221,44 @@ class _OneHomeState extends State<OneHome> {
                           break;
                         case '3':
                           return ListTile(
+                            contentPadding: EdgeInsets.only(left: 0, right: 0),
                             onTap: () {
                               Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) {
-                                return new QuestionContent({'item_id': list['item_id'],'title':list['title'],'share_url':list['share_url']});
+                                return new QuestionContent(
+                                    {'item_id': list['item_id'], 'title': list['title'], 'share_url': list['share_url']});
                               }));
                             },
                             title: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
                                 Center(
-                                  child: Text('-- ${category[list['category']]} --'),
+                                  child: Text('-- ${category[list['category']]} --', style: TextStyle(fontSize: 12, color: Colors.black38)),
                                 ),
                                 Container(
-                                  child: Text('${list['title']} | ${list['pic_info']}'),
+                                  padding: EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
+                                  child: Text('${list['title']}', style: TextStyle(fontSize: 18)),
                                 ),
                                 Container(
-                                  child: Text('${list['answerer']['user_name']}答'),
+                                  padding: EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
+                                  child: Text('${list['answerer']['user_name']}答', style: TextStyle(fontSize: 12, color: Colors.black38)),
                                 ),
                                 Container(
+                                  padding: EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
                                   child: Image.network(
                                     list['img_url'],
                                     fit: BoxFit.fitWidth,
                                   ),
                                 ),
                                 Container(
-                                  child: Text(list['forward']),
-                                  padding: EdgeInsets.only(bottom: 10),
+                                  child: Text(
+                                    list['forward'],
+                                    style: TextStyle(fontSize: 14, color: Colors.black38, height: 1.5),
+                                  ),
+                                  padding: EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
                                 ),
                                 Container(
-                                  height: 3,
-                                  color: Colors.black38,
+                                  height: 4,
+                                  color: Colors.black12,
                                 )
                               ],
                             ),
@@ -230,22 +266,26 @@ class _OneHomeState extends State<OneHome> {
                           break;
                         case '4':
                           return ListTile(
+                            contentPadding: EdgeInsets.only(left: 0, right: 0),
                             onTap: () {
                               Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) {
-                                return new MusicContent({'item_id': list['item_id'],'title':list['title'],'share_url':list['share_url']});
+                                return new MusicContent(
+                                    {'item_id': list['item_id'], 'title': list['title'], 'share_url': list['share_url']});
                               }));
                             },
                             title: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
                                 Center(
-                                  child: Text('-- ${category[list['category']]} --'),
+                                  child: Text('-- ${category[list['category']]} --', style: TextStyle(fontSize: 12, color: Colors.black38)),
                                 ),
                                 Container(
-                                  child: Text('${list['title']} | ${list['pic_info']}'),
+                                  padding: EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
+                                  child: Text('${list['title']}', style: TextStyle(fontSize: 18)),
                                 ),
                                 Container(
-                                  child: Text('文 / ${list['author']['user_name']}'),
+                                  padding: EdgeInsets.only(left: 20, right: 20, bottom: 10),
+                                  child: Text('文 / ${list['author']['user_name']}', style: TextStyle(fontSize: 12, color: Colors.black38)),
                                 ),
                                 Center(
                                   child: SizedBox(
@@ -274,15 +314,18 @@ class _OneHomeState extends State<OneHome> {
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
                                   ),
-                                  padding: EdgeInsets.only(bottom: 10),
+                                  padding: EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
                                 ),
                                 Container(
-                                  child: Text(list['forward']),
-                                  padding: EdgeInsets.only(bottom: 10),
+                                  child: Text(
+                                    list['forward'],
+                                    style: TextStyle(fontSize: 14, color: Colors.black38, height: 1.5),
+                                  ),
+                                  padding: EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
                                 ),
                                 Container(
-                                  height: 3,
-                                  color: Colors.black38,
+                                  height: 4,
+                                  color: Colors.black12,
                                 )
                               ],
                             ),
@@ -290,43 +333,49 @@ class _OneHomeState extends State<OneHome> {
                           break;
                         case '5':
                           return ListTile(
+                            contentPadding: EdgeInsets.only(left: 0, right: 0),
                             onTap: () {
                               Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) {
-                                return new MovieContent({'item_id': list['item_id'],'title':list['title'],'share_url':list['share_url']});
+                                return new MovieContent(
+                                    {'item_id': list['item_id'], 'title': list['title'], 'share_url': list['share_url']});
                               }));
                             },
                             title: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
                                 Center(
-                                  child: Text('-- ${category[list['category']]} --'),
+                                  child: Text('-- ${category[list['category']]} --', style: TextStyle(fontSize: 12, color: Colors.black38)),
                                 ),
                                 Container(
-                                  child: Text('${list['title']} | ${list['pic_info']}'),
+                                  padding: EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
+                                  child: Text('${list['title']}', style: TextStyle(fontSize: 18)),
                                 ),
                                 Container(
-                                  child: Text('文 / ${list['author']['user_name']}'),
+                                  padding: EdgeInsets.only(left: 20, right: 20, bottom: 10),
+                                  child: Text('文 / ${list['author']['user_name']}', style: TextStyle(fontSize: 12, color: Colors.black38)),
                                 ),
                                 Container(
+                                  padding: EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
                                   child: Image.network(
                                     list['img_url'],
                                     fit: BoxFit.fitWidth,
                                   ),
                                 ),
                                 Container(
-                                  child: Text(list['forward']),
-                                  padding: EdgeInsets.only(bottom: 10),
+                                  child: Text(
+                                    list['forward'],
+                                    style: TextStyle(fontSize: 14, color: Colors.black38, height: 1.5),
+                                  ),
+                                  padding: EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
                                 ),
                                 Container(
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.end,
-                                    children: <Widget>[Text('————《${list['subtitle']}》')],
+                                    children: <Widget>[
+                                      Text('————《${list['subtitle']}》', style: TextStyle(fontSize: 14, color: Colors.black38, height: 1.5))
+                                    ],
                                   ),
                                 ),
-                                Container(
-                                  height: 3,
-                                  color: Colors.black38,
-                                )
                               ],
                             ),
                           );

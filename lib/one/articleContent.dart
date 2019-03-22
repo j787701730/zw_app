@@ -76,7 +76,6 @@ class _ArticleContentState extends State<ArticleContent> {
                 Container(
                   child: Text('文 / ${article['author'][0]['user_name']}'),
                 ),
-//                NewsDetailsWeb(body: article['hp_content']),
                 Html(
                   data: article['hp_content'],
                   padding: EdgeInsets.all(8),
@@ -168,34 +167,6 @@ class _ArticleContentState extends State<ArticleContent> {
                           );
                         }).toList(),
                       )
-//                Html(
-//                  data: article['hp_content'],
-//                  padding: EdgeInsets.all(8.0),
-//                  linkStyle: const TextStyle(
-//                    color: Colors.redAccent,
-//                    decorationColor: Colors.redAccent,
-//                    decoration: TextDecoration.underline,
-//                  ),
-//                  onLinkTap: (url) {
-//                    print("Opening $url...");
-//                  },
-//                  customRender: (node, children) {
-//                    if (node is dom.Element) {
-//                      print(node.toString());
-//                      switch (node.localName) {
-//                        case "p":
-////                          return Column(children: children);
-//                          return Container(
-//                            padding: EdgeInsets.all(10),
-//                            child: Container(
-//                              width: MediaQuery.of(context).size.width,
-//                              child: Text(node.innerHtml),
-//                            ),
-//                          );
-//                      }
-//                    }
-//                  },
-//                )
               ],
             ),
     );
