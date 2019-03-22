@@ -4,6 +4,8 @@ import 'musicPlayer.dart';
 import 'dart:convert';
 import '../pageLoading.dart';
 import 'articleContent.dart';
+import 'musicContent.dart';
+import 'movieContent.dart';
 
 class OneHome extends StatefulWidget {
   @override
@@ -152,6 +154,11 @@ class _OneHomeState extends State<OneHome> {
                           break;
                         case '2':
                           return ListTile(
+                            onTap: () {
+                              Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) {
+                                return new ArticleContent({'item_id': list['item_id'],'title':list['title'],'share_url':list['share_url']});
+                              }));
+                            },
                             title: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
@@ -184,6 +191,11 @@ class _OneHomeState extends State<OneHome> {
                           break;
                         case '3':
                           return ListTile(
+                            onTap: () {
+//                              Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) {
+//                                return new ArticleContent({'item_id': list['item_id'],'title':list['title'],'share_url':list['share_url']});
+//                              }));
+                            },
                             title: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
@@ -216,6 +228,11 @@ class _OneHomeState extends State<OneHome> {
                           break;
                         case '4':
                           return ListTile(
+                            onTap: () {
+                              Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) {
+                                return new MusicContent({'item_id': list['item_id'],'title':list['title'],'share_url':list['share_url']});
+                              }));
+                            },
                             title: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
@@ -271,6 +288,11 @@ class _OneHomeState extends State<OneHome> {
                           break;
                         case '5':
                           return ListTile(
+                            onTap: () {
+                              Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) {
+                                return new MovieContent({'item_id': list['item_id'],'title':list['title'],'share_url':list['share_url']});
+                              }));
+                            },
                             title: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[

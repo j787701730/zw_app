@@ -2,53 +2,50 @@ import 'package:flutter/material.dart';
 import '../pageLoading.dart';
 import 'util.dart';
 import 'dart:convert';
-
-//import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
-//import 'package:flutter_html/flutter_html.dart';
-//import 'package:html/dom.dart' as dom;
-//import 'html.dart';
 import 'package:flutter_html/flutter_html.dart';
-import 'package:html/dom.dart' as dom;
+//import 'musicPlayer.dart';
+import 'package:audioplayers/audioplayers.dart';
 
-class ArticleContent extends StatefulWidget {
+class MusicContent extends StatefulWidget {
   final params;
 
-  ArticleContent(this.params);
+  MusicContent(this.params);
 
   @override
-  _ArticleContentState createState() => _ArticleContentState(params);
+  _MusicContentState createState() => _MusicContentState(params);
 }
 
-class _ArticleContentState extends State<ArticleContent> {
-  final Map params;
+class _MusicContentState extends State<MusicContent> {
+  final params;
 
-  _ArticleContentState(this.params);
+  _MusicContentState(this.params);
 
   Map article = {};
   Map comments = {};
-
+  AudioPlayer audioPlayer = new AudioPlayer();
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    _getArticle();
+    _getMusic();
     _getComment();
   }
 
-  _getArticle() {
-    ajax('http://v3.wufazhuce.com:8000/api/essay/${params['item_id']}', (data) {
+  _getMusic() {
+    ajax('http://v3.wufazhuce.com:8000/api/music/detail/${params['item_id']}', (data) {
       print(jsonEncode(data));
       if (!mounted) return;
       if (data['res'] == 0) {
         setState(() {
           article = data['data'];
+          audioPlayer.play(data['data']['music_id']);
         });
       }
     });
   }
 
   _getComment() {
-    ajax('http://v3.wufazhuce.com:8000/api/comment/praiseandtime/essay/${params['item_id']}/0', (data) {
+    ajax('http://v3.wufazhuce.com:8000/api/comment/praiseandtime/music/${params['item_id']}/0', (data) {
       print('评论');
       print(jsonEncode(data));
       if (!mounted) return;
@@ -58,6 +55,12 @@ class _ArticleContentState extends State<ArticleContent> {
         });
       }
     });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    audioPlayer.stop();
   }
 
   @override
@@ -71,18 +74,27 @@ class _ArticleContentState extends State<ArticleContent> {
           : ListView(
               children: <Widget>[
                 Container(
-                  child: Text(article['hp_title']),
+                  height: 100,
+                  decoration: BoxDecoration(image: DecorationImage(image: NetworkImage(article['cover']))),
+                  child: Icon(
+                    Icons.play_circle_outline,
+                    color: Colors.white,
+                  ),
+                ),
+//                MusicPlayer(url: article['music_id']),
+                Container(
+                  child: Text(article['story_title']),
                 ),
                 Container(
-                  child: Text('文 / ${article['author'][0]['user_name']}'),
+                  child: Text('文 / ${article['author']['user_name']}'),
                 ),
 //                NewsDetailsWeb(body: article['hp_content']),
                 Html(
-                  data: article['hp_content'],
+                  data: article['story'],
                   padding: EdgeInsets.all(8),
                 ),
                 Container(
-                  child: Text(article['hp_author_introduce']),
+                  child: Text(article['charge_edt']),
                 ),
                 Container(
                   child: Text(article['editor_email']),
