@@ -6,6 +6,8 @@ import '../pageLoading.dart';
 import 'articleContent.dart';
 import 'musicContent.dart';
 import 'movieContent.dart';
+import 'questionContent.dart';
+import 'serialContent.dart';
 
 class OneHome extends StatefulWidget {
   @override
@@ -156,7 +158,7 @@ class _OneHomeState extends State<OneHome> {
                           return ListTile(
                             onTap: () {
                               Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) {
-                                return new ArticleContent({'item_id': list['item_id'],'title':list['title'],'share_url':list['share_url']});
+                                return new SerialContent({'item_id': list['item_id'],'title':list['title'],'share_url':list['share_url']});
                               }));
                             },
                             title: Column(
@@ -192,9 +194,9 @@ class _OneHomeState extends State<OneHome> {
                         case '3':
                           return ListTile(
                             onTap: () {
-//                              Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) {
-//                                return new ArticleContent({'item_id': list['item_id'],'title':list['title'],'share_url':list['share_url']});
-//                              }));
+                              Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) {
+                                return new QuestionContent({'item_id': list['item_id'],'title':list['title'],'share_url':list['share_url']});
+                              }));
                             },
                             title: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
