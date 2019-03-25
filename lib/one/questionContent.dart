@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import '../pageLoading.dart';
 import 'util.dart';
 import 'dart:convert';
+import 'commentWidget.dart';
+import 'authorList.dart';
 
 //import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 //import 'package:flutter_html/flutter_html.dart';
@@ -71,137 +73,90 @@ class _QuestionContentState extends State<QuestionContent> {
           : ListView(
               children: <Widget>[
                 Container(
-                  child: Text(article['question_title']),
+                  padding: EdgeInsets.only(top: 20, bottom: 20, left: 20),
+                  child: Text(
+                    article['question_title'],
+                    style: TextStyle(fontSize: 22),
+                  ),
                 ),
                 Container(
+                  padding: EdgeInsets.only(left: 20),
                   child: Text('${article['asker']['user_name']}问:'),
                 ),
                 Container(
+                  padding: EdgeInsets.only(top: 20, bottom: 20, left: 20),
                   child: Text('${article['question_content']}'),
                 ),
                 Container(
+                  padding: EdgeInsets.only(top: 20, bottom: 20, left: 20),
                   child: Text('网友答:'),
                 ),
 //                NewsDetailsWeb(body: article['hp_content']),
                 Html(
                   data: article['answer_content'],
-                  padding: EdgeInsets.all(8),
-                ),
-                Container(
-                  child: Text(article['charge_edt']),
-                ),
-                Container(
-                  child: Text(article['charge_email']),
-                ),
-                Container(
-                  child: Text(
-                    '作者',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  padding: EdgeInsets.only(left: 20, right: 20),
+                  defaultTextStyle: TextStyle(
+                    height: 1.5,
+                    fontSize: 16,
                   ),
                 ),
-                Column(
-                  children: article['author_list'].map<Widget>((list) {
-                    return Row(
-                      children: <Widget>[
-                        SizedBox(
-                          width: 50,
-                          child: Image.network(
-                            '${list['web_url']}',
-                            fit: BoxFit.fitWidth,
-                          ),
-                        ),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Container(
-                                child: Text(list['user_name']),
-                              ),
-                              Container(
-                                child: Text(list['desc']),
-                              ),
-                            ],
-                          ),
-                        )
-                      ],
-                    );
-                  }).toList(),
+                Container(
+                  padding: EdgeInsets.only(left: 20, right: 20, bottom: 20),
+                  child: Text(
+                    '${article['charge_edt']} ${article['editor_email']}',
+                    style: TextStyle(color: Colors.black38),
+                  ),
                 ),
                 Container(
+                  padding: EdgeInsets.only(left: 20, right: 20, bottom: 10),
+                  child: Text(
+                    '作者',
+                    style: TextStyle(
+                      fontSize: 18,
+                    ),
+                  ),
+                ),
+                Row(
+                  children: <Widget>[
+                    SizedBox(
+                      width: 20,
+                    ),
+                    Container(
+                      padding: EdgeInsets.only(left: 20, right: 20, bottom: 20),
+                      height: 4,
+                      width: 60,
+                      color: Colors.black87,
+                    ),
+                  ],
+                ),
+                AuthorList(article),
+                Container(
+                  height: 20,
+                ),
+                Container(
+                  padding: EdgeInsets.only(left: 20, right: 20, bottom: 10),
                   child: Text(
                     '评论列表',
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                 ),
-                comments.isEmpty
-                    ? Placeholder(
-                        fallbackHeight: 1,
-                        color: Colors.transparent,
-                      )
-                    : Column(
-                        children: comments['data'].map<Widget>((comment) {
-                          return Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Row(
-                                children: <Widget>[
-                                  SizedBox(
-                                    width: 40,
-                                    child: Image.network(comment['user']['web_url']),
-                                  ),
-                                  Expanded(
-                                    child: Text(comment['user']['user_name']),
-                                  ),
-                                  SizedBox(
-                                    child: Text(comment['input_date']),
-                                  )
-                                ],
-                              ),
-                              Container(
-                                child: Text(comment['content']),
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: <Widget>[
-                                  Icon(
-                                    Icons.thumb_up,
-                                    color: Colors.black38,
-                                  ),
-                                  Text('${comment['praisenum']}')
-                                ],
-                              )
-                            ],
-                          );
-                        }).toList(),
-                      )
-//                Html(
-//                  data: article['hp_content'],
-//                  padding: EdgeInsets.all(8.0),
-//                  linkStyle: const TextStyle(
-//                    color: Colors.redAccent,
-//                    decorationColor: Colors.redAccent,
-//                    decoration: TextDecoration.underline,
-//                  ),
-//                  onLinkTap: (url) {
-//                    print("Opening $url...");
-//                  },
-//                  customRender: (node, children) {
-//                    if (node is dom.Element) {
-//                      print(node.toString());
-//                      switch (node.localName) {
-//                        case "p":
-////                          return Column(children: children);
-//                          return Container(
-//                            padding: EdgeInsets.all(10),
-//                            child: Container(
-//                              width: MediaQuery.of(context).size.width,
-//                              child: Text(node.innerHtml),
-//                            ),
-//                          );
-//                      }
-//                    }
-//                  },
-//                )
+                Row(
+                  children: <Widget>[
+                    SizedBox(
+                      width: 20,
+                    ),
+                    Container(
+                      padding: EdgeInsets.only(left: 20, right: 20, bottom: 20),
+                      height: 4,
+                      width: 60,
+                      color: Colors.black87,
+                    ),
+                  ],
+                ),
+                Container(
+                  height: 20,
+                ),
+                CommentsWidget(comments)
               ],
             ),
     );
