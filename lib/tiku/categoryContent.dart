@@ -67,11 +67,11 @@ class _CategoryContentState extends State<CategoryContent> {
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
+                  padding: EdgeInsets.only(left: 20, right: 20,  bottom: 10),
                   child: Text(result['list'][0]['title']),
                 ),
                 Container(
-                  padding: EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
+                  padding: EdgeInsets.only(left: 20, right: 20,  bottom: 10),
                   child: Text(
                     '答案',
                     style: TextStyle(fontWeight: FontWeight.bold),
@@ -141,7 +141,7 @@ class _CategoryContentState extends State<CategoryContent> {
                         ),
                       )
                     : Container(
-                        padding: EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
+                        padding: EdgeInsets.only(left: 20, right: 20,  bottom: 10),
                         child: Wrap(
                           children: <Widget>[
                             FlatButton(
@@ -161,7 +161,7 @@ class _CategoryContentState extends State<CategoryContent> {
                       ),
                 result['list'][0]['file'] != null
                     ? Container(
-                        padding: EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
+                        padding: EdgeInsets.only(left: 20, right: 20,  bottom: 10),
                         child: Image.network(
                           result['list'][0]['file'],
                           fit: BoxFit.contain,
@@ -172,7 +172,7 @@ class _CategoryContentState extends State<CategoryContent> {
                         color: Colors.transparent,
                       ),
                 Container(
-                  padding: EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
+                  padding: EdgeInsets.only(left: 20, right: 20, bottom: 10),
                   child: Row(
                     children: <Widget>[
                       Text(
@@ -194,7 +194,7 @@ class _CategoryContentState extends State<CategoryContent> {
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
+                  padding: EdgeInsets.only(left: 20, right: 20,  bottom: 10),
                   child: Text(
                     '解释',
                     style: TextStyle(fontWeight: FontWeight.bold),
@@ -205,7 +205,7 @@ class _CategoryContentState extends State<CategoryContent> {
                   child: Text(result['list'][0]['explainText']),
                 ),
                 Container(
-                  padding: EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
+                  padding: EdgeInsets.only(left: 20, right: 20,  bottom: 10),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
@@ -244,13 +244,13 @@ class _CategoryContentState extends State<CategoryContent> {
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
+                  padding: EdgeInsets.only(left: 20, right: 20,  bottom: 10),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       Text('跳转  '),
                       SizedBox(
-                        width: 200,
+                        width: 100,
                         child: TextField(
                           controller: TextEditingController.fromValue(TextEditingValue(
                               // 设置内容

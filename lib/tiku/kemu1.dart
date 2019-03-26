@@ -47,8 +47,7 @@ class _KeMu1State extends State<KeMu1> {
                 Container(
                   padding: EdgeInsets.only(left: 20, right: 20, top: 10),
                   child: Center(
-                    child:
-                        Text('$page / ${result['total']}', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+                    child: Text('$page / ${result['total']}', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
                   ),
                 ),
                 Container(
@@ -59,11 +58,11 @@ class _KeMu1State extends State<KeMu1> {
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
+                  padding: EdgeInsets.only(left: 20, right: 20, bottom: 10),
                   child: Text(result['list'][0]['title']),
                 ),
                 Container(
-                  padding: EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
+                  padding: EdgeInsets.only(left: 20, right: 20, bottom: 10),
                   child: Text(
                     '答案',
                     style: TextStyle(fontWeight: FontWeight.bold),
@@ -113,7 +112,7 @@ class _KeMu1State extends State<KeMu1> {
                         ),
                       )
                     : Container(
-                        padding: EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
+                        padding: EdgeInsets.only(left: 20, right: 20, bottom: 10),
                         child: Wrap(
                           children: <Widget>[
                             FlatButton(
@@ -131,20 +130,19 @@ class _KeMu1State extends State<KeMu1> {
                           ],
                         ),
                       ),
-                result['list'][0]['file'] != null
+                result['list'][0]['file'] != ''
                     ? Container(
-                        padding: EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
+                        padding: EdgeInsets.only(left: 20, right: 20, bottom: 10),
                         child: Image.network(
                           result['list'][0]['file'],
                           fit: BoxFit.contain,
                         ),
                       )
-                    : Placeholder(
-                        fallbackHeight: 1,
-                        color: Colors.transparent,
+                    : Container(
+                        height: 1,
                       ),
                 Container(
-                  padding: EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
+                  padding: EdgeInsets.only(left: 20, right: 20, bottom: 10),
                   child: Row(
                     children: <Widget>[
                       Text(
@@ -153,10 +151,9 @@ class _KeMu1State extends State<KeMu1> {
                       ),
                       result['list'][0]['tikuType'] == 'select'
                           ? Container(
-                              padding: EdgeInsets.only(left: 20),
-                              child: Text(result['list'][0]['val'].length == 1
-                                  ? selectVal[result['list'][0]['val']]
-                                  : result['list'][0]['val']),
+                              padding: EdgeInsets.only(left: 10),
+                              child: Text(
+                                  result['list'][0]['val'].length == 1 ? selectVal[result['list'][0]['val']] : result['list'][0]['val']),
                             )
                           : Container(
                               padding: EdgeInsets.only(left: 20),
@@ -166,7 +163,7 @@ class _KeMu1State extends State<KeMu1> {
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
+                  padding: EdgeInsets.only(left: 20, right: 20, bottom: 10),
                   child: Text(
                     '解释',
                     style: TextStyle(fontWeight: FontWeight.bold),
@@ -177,7 +174,7 @@ class _KeMu1State extends State<KeMu1> {
                   child: Text(result['list'][0]['explainText']),
                 ),
                 Container(
-                  padding: EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
+                  padding: EdgeInsets.only(left: 20, right: 20, bottom: 10),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
@@ -216,19 +213,19 @@ class _KeMu1State extends State<KeMu1> {
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
+                  padding: EdgeInsets.only(left: 20, right: 20, bottom: 10),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       Text('跳转  '),
                       SizedBox(
-                        width: 200,
+                        width: 100,
                         child: TextField(
                           controller: TextEditingController.fromValue(TextEditingValue(
                               // 设置内容
                               text: '$pageTemp',
-                              selection: TextSelection.fromPosition(
-                                  TextPosition(affinity: TextAffinity.downstream, offset: '$pageTemp'.length))
+                              selection:
+                                  TextSelection.fromPosition(TextPosition(affinity: TextAffinity.downstream, offset: '$pageTemp'.length))
                               // 保持光标在最后
                               )),
                           onChanged: (val) {
