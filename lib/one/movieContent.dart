@@ -4,13 +4,7 @@ import 'util.dart';
 import 'dart:convert';
 import 'commentWidget.dart';
 import 'authorList.dart';
-
-//import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
-//import 'package:flutter_html/flutter_html.dart';
-//import 'package:html/dom.dart' as dom;
-//import 'html.dart';
 import 'package:flutter_html/flutter_html.dart';
-import 'package:html/dom.dart' as dom;
 
 class MovieContent extends StatefulWidget {
   final params;
@@ -110,7 +104,6 @@ class _MovieContentState extends State<MovieContent> {
                           padding: EdgeInsets.only(left: 20),
                           child: Text('文 / ${article['user']['user_name']}'),
                         ),
-
 //                NewsDetailsWeb(body: article['hp_content']),
                         Html(
                           data: article['content'],
