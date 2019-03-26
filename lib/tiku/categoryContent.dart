@@ -159,12 +159,14 @@ class _CategoryContentState extends State<CategoryContent> {
                           ],
                         ),
                       ),
-                result['list'][0]['file'] != null
+                result['list'][0]['file'] != ''
                     ? Container(
                         padding: EdgeInsets.only(left: 20, right: 20,  bottom: 10),
                         child: Image.network(
                           result['list'][0]['file'],
                           fit: BoxFit.contain,
+                          width: 150,
+                          height: 150,
                         ),
                       )
                     : Placeholder(

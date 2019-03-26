@@ -136,6 +136,8 @@ class _KeMu1State extends State<KeMu1> {
                         child: Image.network(
                           result['list'][0]['file'],
                           fit: BoxFit.contain,
+                          width: 150,
+                          height: 150,
                         ),
                       )
                     : Container(

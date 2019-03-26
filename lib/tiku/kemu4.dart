@@ -136,6 +136,8 @@ class _KeMu4State extends State<KeMu4> {
                         child: Image.network(
                           result['list'][0]['file'],
                           fit: BoxFit.contain,
+                          width: 150,
+                          height: 150,
                         ),
                       )
                     : Placeholder(
