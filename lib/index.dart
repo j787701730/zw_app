@@ -3,6 +3,7 @@ import 'movie/home.dart';
 import 'weather/home.dart';
 import 'livideo/home.dart';
 import 'one/home.dart';
+import 'tiku/home.dart';
 
 class Index extends StatelessWidget {
   DateTime _lastPressedAt;
@@ -42,6 +43,13 @@ class Index extends StatelessWidget {
                   onTap: () {
                     Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) {
                       return new OneHome();
+                    }));
+                  },
+                ),ListTile(
+                  title: Text('驾照题库'),
+                  onTap: () {
+                    Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) {
+                      return new TiKuHome();
                     }));
                   },
                 ),
