@@ -4,6 +4,7 @@ import 'weather/home.dart';
 import 'livideo/home.dart';
 import 'one/home.dart';
 import 'tiku/home.dart';
+import 'stock/home.dart';
 
 class Index extends StatelessWidget {
   DateTime _lastPressedAt;
@@ -24,32 +25,44 @@ class Index extends StatelessWidget {
                       return new MovieHome();
                     }));
                   },
-                ),ListTile(
+                ),
+                ListTile(
                   title: Text('天气'),
                   onTap: () {
                     Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) {
                       return new WeatherHome();
                     }));
                   },
-                ),ListTile(
+                ),
+                ListTile(
                   title: Text('视频'),
                   onTap: () {
                     Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) {
                       return new LiHome();
                     }));
                   },
-                ),ListTile(
+                ),
+                ListTile(
                   title: Text('ONE'),
                   onTap: () {
                     Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) {
                       return new OneHome();
                     }));
                   },
-                ),ListTile(
+                ),
+                ListTile(
                   title: Text('驾照题库'),
                   onTap: () {
                     Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) {
                       return new TiKuHome();
+                    }));
+                  },
+                ),
+                ListTile(
+                  title: Text('全球股指'),
+                  onTap: () {
+                    Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) {
+                      return new StockHome();
                     }));
                   },
                 ),
