@@ -5,6 +5,7 @@ import 'livideo/home.dart';
 import 'one/home.dart';
 import 'tiku/home.dart';
 import 'stock/home.dart';
+import 'car/home.dart';
 
 class Index extends StatelessWidget {
   DateTime _lastPressedAt;
@@ -55,6 +56,13 @@ class Index extends StatelessWidget {
                   onTap: () {
                     Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) {
                       return new TiKuHome();
+                    }));
+                  },
+                ),ListTile(
+                  title: Text('汽车信息'),
+                  onTap: () {
+                    Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) {
+                      return new CarHome();
                     }));
                   },
                 ),
