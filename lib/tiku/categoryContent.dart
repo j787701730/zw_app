@@ -33,6 +33,9 @@ class _CategoryContentState extends State<CategoryContent> {
   int pageTemp = 1;
 
   _getCategoryContent() {
+    setState(() {
+      result = {};
+    });
     ajax('http://apicloud.mob.com/tiku/shitiku/query?page=$page&size=$size&cid=${params['cid']}', (data) {
       var obj = jsonDecode(data);
       print(obj['result']);
@@ -55,8 +58,7 @@ class _CategoryContentState extends State<CategoryContent> {
                 Container(
                   padding: EdgeInsets.only(left: 20, right: 20, top: 10),
                   child: Center(
-                    child:
-                        Text('$page / ${result['total']}', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+                    child: Text('$page / ${result['total']}', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
                   ),
                 ),
                 Container(
@@ -67,11 +69,11 @@ class _CategoryContentState extends State<CategoryContent> {
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.only(left: 20, right: 20,  bottom: 10),
+                  padding: EdgeInsets.only(left: 20, right: 20, bottom: 10),
                   child: Text(result['list'][0]['title']),
                 ),
                 Container(
-                  padding: EdgeInsets.only(left: 20, right: 20,  bottom: 10),
+                  padding: EdgeInsets.only(left: 20, right: 20, bottom: 10),
                   child: Text(
                     '答案',
                     style: TextStyle(fontWeight: FontWeight.bold),
@@ -88,10 +90,9 @@ class _CategoryContentState extends State<CategoryContent> {
                                 color: '${result['list'][0]['val']}'.contains('A') || result['list'][0]['val'] == '1'
                                     ? Colors.blue
                                     : Colors.white,
-                                textColor:
-                                    '${result['list'][0]['val']}'.contains('A') || result['list'][0]['val'] == '1'
-                                        ? Colors.white
-                                        : Colors.black,
+                                textColor: '${result['list'][0]['val']}'.contains('A') || result['list'][0]['val'] == '1'
+                                    ? Colors.white
+                                    : Colors.black,
                                 onPressed: () {},
                                 child: Text('A: ${result['list'][0]['a']}'),
                               ),
@@ -102,10 +103,9 @@ class _CategoryContentState extends State<CategoryContent> {
                                 color: '${result['list'][0]['val']}'.contains('B') || result['list'][0]['val'] == '2'
                                     ? Colors.blue
                                     : Colors.white,
-                                textColor:
-                                    '${result['list'][0]['val']}'.contains('B') || result['list'][0]['val'] == '2'
-                                        ? Colors.white
-                                        : Colors.black,
+                                textColor: '${result['list'][0]['val']}'.contains('B') || result['list'][0]['val'] == '2'
+                                    ? Colors.white
+                                    : Colors.black,
                                 onPressed: () {},
                                 child: Text('B: ${result['list'][0]['b']}'),
                               ),
@@ -116,10 +116,9 @@ class _CategoryContentState extends State<CategoryContent> {
                                 color: '${result['list'][0]['val']}'.contains('C') || result['list'][0]['val'] == '3'
                                     ? Colors.blue
                                     : Colors.white,
-                                textColor:
-                                    '${result['list'][0]['val']}'.contains('C') || result['list'][0]['val'] == '3'
-                                        ? Colors.white
-                                        : Colors.black,
+                                textColor: '${result['list'][0]['val']}'.contains('C') || result['list'][0]['val'] == '3'
+                                    ? Colors.white
+                                    : Colors.black,
                                 onPressed: () {},
                                 child: Text('C: ${result['list'][0]['c']}'),
                               ),
@@ -129,10 +128,9 @@ class _CategoryContentState extends State<CategoryContent> {
                                 color: '${result['list'][0]['val']}'.contains('D') || result['list'][0]['val'] == '4'
                                     ? Colors.blue
                                     : Colors.white,
-                                textColor:
-                                    '${result['list'][0]['val']}'.contains('D') || result['list'][0]['val'] == '4'
-                                        ? Colors.white
-                                        : Colors.black,
+                                textColor: '${result['list'][0]['val']}'.contains('D') || result['list'][0]['val'] == '4'
+                                    ? Colors.white
+                                    : Colors.black,
                                 onPressed: () {},
                                 child: Text('D: ${result['list'][0]['d']}'),
                               ),
@@ -141,7 +139,7 @@ class _CategoryContentState extends State<CategoryContent> {
                         ),
                       )
                     : Container(
-                        padding: EdgeInsets.only(left: 20, right: 20,  bottom: 10),
+                        padding: EdgeInsets.only(left: 20, right: 20, bottom: 10),
                         child: Wrap(
                           children: <Widget>[
                             FlatButton(
@@ -161,7 +159,7 @@ class _CategoryContentState extends State<CategoryContent> {
                       ),
                 result['list'][0]['file'] != ''
                     ? Container(
-                        padding: EdgeInsets.only(left: 20, right: 20,  bottom: 10),
+                        padding: EdgeInsets.only(left: 20, right: 20, bottom: 10),
                         child: Image.network(
                           result['list'][0]['file'],
                           fit: BoxFit.contain,
@@ -184,9 +182,8 @@ class _CategoryContentState extends State<CategoryContent> {
                       result['list'][0]['tikuType'] == 'select'
                           ? Container(
                               padding: EdgeInsets.only(left: 20),
-                              child: Text(result['list'][0]['val'].length == 1
-                                  ? selectVal[result['list'][0]['val']]
-                                  : result['list'][0]['val']),
+                              child: Text(
+                                  result['list'][0]['val'].length == 1 ? selectVal[result['list'][0]['val']] : result['list'][0]['val']),
                             )
                           : Container(
                               padding: EdgeInsets.only(left: 20),
@@ -196,7 +193,7 @@ class _CategoryContentState extends State<CategoryContent> {
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.only(left: 20, right: 20,  bottom: 10),
+                  padding: EdgeInsets.only(left: 20, right: 20, bottom: 10),
                   child: Text(
                     '解释',
                     style: TextStyle(fontWeight: FontWeight.bold),
@@ -207,7 +204,7 @@ class _CategoryContentState extends State<CategoryContent> {
                   child: Text(result['list'][0]['explainText']),
                 ),
                 Container(
-                  padding: EdgeInsets.only(left: 20, right: 20,  bottom: 10),
+                  padding: EdgeInsets.only(left: 20, right: 20, bottom: 10),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
@@ -246,7 +243,7 @@ class _CategoryContentState extends State<CategoryContent> {
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.only(left: 20, right: 20,  bottom: 10),
+                  padding: EdgeInsets.only(left: 20, right: 20, bottom: 10),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
@@ -257,8 +254,8 @@ class _CategoryContentState extends State<CategoryContent> {
                           controller: TextEditingController.fromValue(TextEditingValue(
                               // 设置内容
                               text: '$pageTemp',
-                              selection: TextSelection.fromPosition(
-                                  TextPosition(affinity: TextAffinity.downstream, offset: '$pageTemp'.length))
+                              selection:
+                                  TextSelection.fromPosition(TextPosition(affinity: TextAffinity.downstream, offset: '$pageTemp'.length))
                               // 保持光标在最后
                               )),
                           onChanged: (val) {

@@ -25,6 +25,9 @@ class _KeMu1State extends State<KeMu1> {
   int pageTemp = 1;
 
   _getKeMu1() {
+    setState(() {
+      result = {};
+    });
     ajax('http://apicloud.mob.com/tiku/kemu1/query?page=$page&size=$size', (data) {
       var obj = jsonDecode(data);
       print(obj['result']);
