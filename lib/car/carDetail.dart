@@ -57,67 +57,134 @@ class _CarDetailState extends State<CarDetail> {
                           fit: BoxFit.fitWidth,
                         ),
                       ),
-                      CarItem(res['airConfig']),
                       Container(
-                        height: 20,
+                        padding: EdgeInsets.all(10),
+                        child: Text(
+                          '基本参数',
+                          style: TextStyle(color: Color.fromRGBO(153, 48, 0, 1)),
+                        ),
                       ),
                       CarItem(res['baseInfo']),
                       Container(
-                        height: 20,
+                        padding: EdgeInsets.all(10),
+                        child: Text(
+                          '车身',
+                          style: TextStyle(color: Color.fromRGBO(153, 48, 0, 1)),
+                        ),
                       ),
                       CarItem(res['carbody']),
                       Container(
-                        height: 20,
-                      ),
-                      CarItem(res['chassis']),
-                      Container(
-                        height: 20,
-                      ),
-                      CarItem(res['controlConfig']),
-                      Container(
-                        height: 20,
-                      ),
-                      CarItem(res['engine']),
-                      Container(
-                        height: 20,
-                      ),
-                      CarItem(res['exterConfig']),
-                      Container(
-                        height: 20,
-                      ),
-                      CarItem(res['glassConfig']),
-                      Container(
-                        height: 20,
-                      ),
-                      CarItem(res['interConfig']),
-                      Container(
-                        height: 20,
-                      ),
-                      CarItem(res['lightConfig']),
-                      Container(
-                        height: 20,
-                      ),
-                      CarItem(res['mediaConfig']),
-                      Container(
-                        height: 20,
-                      ),
-                      CarItem(res['safetyDevice']),
-                      Container(
-                        height: 20,
-                      ),
-                      CarItem(res['seatConfig']),
-                      Container(
-                        height: 20,
+                        padding: EdgeInsets.all(10),
+                        child: Text(
+                          '高科技配置',
+                          style: TextStyle(color: Color.fromRGBO(153, 48, 0, 1)),
+                        ),
                       ),
                       CarItem(res['techConfig']),
                       Container(
-                        height: 20,
+                        padding: EdgeInsets.all(10),
+                        child: Text(
+                          '发动机',
+                          style: TextStyle(color: Color.fromRGBO(153, 48, 0, 1)),
+                        ),
+                      ),
+                      CarItem(res['engine']),
+                      Container(
+                        padding: EdgeInsets.all(10),
+                        child: Text(
+                          '变速箱',
+                          style: TextStyle(color: Color.fromRGBO(153, 48, 0, 1)),
+                        ),
                       ),
                       CarItem(res['transmission']),
                       Container(
-                        height: 20,
+                        padding: EdgeInsets.all(10),
+                        child: Text(
+                          '底盘转向',
+                          style: TextStyle(color: Color.fromRGBO(153, 48, 0, 1)),
+                        ),
+                      ),
+                      CarItem(res['chassis']),
+                      Container(
+                        padding: EdgeInsets.all(10),
+                        child: Text(
+                          '车轮制动',
+                          style: TextStyle(color: Color.fromRGBO(153, 48, 0, 1)),
+                        ),
                       ),
                       CarItem(res['wheelInfo']),
+                      Container(
+                        padding: EdgeInsets.all(10),
+                        child: Text(
+                          '主/被动安全装备',
+                          style: TextStyle(color: Color.fromRGBO(153, 48, 0, 1)),
+                        ),
+                      ),
+                      CarItem(res['safetyDevice']),
+                      Container(
+                        padding: EdgeInsets.all(10),
+                        child: Text(
+                          '辅助/操控配置',
+                          style: TextStyle(color: Color.fromRGBO(153, 48, 0, 1)),
+                        ),
+                      ),
+                      CarItem(res['controlConfig']),
+                      Container(
+                        padding: EdgeInsets.all(10),
+                        child: Text(
+                          '外部/防盗配置',
+                          style: TextStyle(color: Color.fromRGBO(153, 48, 0, 1)),
+                        ),
+                      ),
+                      CarItem(res['exterConfig']),
+                      Container(
+                        padding: EdgeInsets.all(10),
+                        child: Text(
+                          '内部配置',
+                          style: TextStyle(color: Color.fromRGBO(153, 48, 0, 1)),
+                        ),
+                      ),
+                      CarItem(res['interConfig']),
+                      Container(
+                        padding: EdgeInsets.all(10),
+                        child: Text(
+                          '座椅配置',
+                          style: TextStyle(color: Color.fromRGBO(153, 48, 0, 1)),
+                        ),
+                      ),
+                      CarItem(res['seatConfig']),
+                      Container(
+                        padding: EdgeInsets.all(10),
+                        child: Text(
+                          '多媒体配置',
+                          style: TextStyle(color: Color.fromRGBO(153, 48, 0, 1)),
+                        ),
+                      ),
+                      CarItem(res['mediaConfig']),
+                      Container(
+                        padding: EdgeInsets.all(10),
+                        child: Text(
+                          '灯光配置',
+                          style: TextStyle(color: Color.fromRGBO(153, 48, 0, 1)),
+                        ),
+                      ),
+                      CarItem(res['lightConfig']),
+                      Container(
+                        padding: EdgeInsets.all(10),
+                        child: Text(
+                          '玻璃/后视镜',
+                          style: TextStyle(color: Color.fromRGBO(153, 48, 0, 1)),
+                        ),
+                      ),
+                      CarItem(res['glassConfig']),
+                      Container(
+                        padding: EdgeInsets.all(10),
+                        child: Text(
+                          '空调/冰箱',
+                          style: TextStyle(color: Color.fromRGBO(153, 48, 0, 1)),
+                        ),
+                      ),
+                      CarItem(res['airConfig']),
                     ],
                   );
                 }).toList(),
