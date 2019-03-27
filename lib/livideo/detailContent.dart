@@ -68,9 +68,9 @@ class _DetailContentState extends State<DetailContent> {
   @override
   void dispose() {
     // TODO: implement dispose
-    super.dispose();
     _videoPlayerController.dispose();
     _chewieController.dispose();
+    super.dispose();
   }
 
   @override

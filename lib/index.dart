@@ -6,6 +6,7 @@ import 'one/home.dart';
 import 'tiku/home.dart';
 import 'stock/home.dart';
 import 'car/home.dart';
+import 'meiriyiwen/home.dart';
 
 class Index extends StatelessWidget {
   DateTime _lastPressedAt;
@@ -67,6 +68,13 @@ class Index extends StatelessWidget {
                   },
                 ),
                 ListTile(
+                  title: Text('每日一文'),
+                  onTap: () {
+                    Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) {
+                      return new MeiRiHome();
+                    }));
+                  },
+                ),ListTile(
                   title: Text('全球股指'),
                   onTap: () {
                     Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) {

@@ -48,9 +48,9 @@ class _MoviePlayState extends State<MoviePlay> {
   @override
   void dispose() {
     // TODO: implement dispose
-    super.dispose();
     _videoPlayerController.dispose();
     _chewieController.dispose();
+    super.dispose();
   }
 
   @override
