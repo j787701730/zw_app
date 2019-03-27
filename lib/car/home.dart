@@ -21,7 +21,7 @@ class _CarHomeState extends State<CarHome> {
 
   _getCarBrand() {
     ajax('http://apicloud.mob.com/car/brand/query?', (data) {
-      print(data);
+      if(!mounted) return;
       var obj = jsonDecode(data);
       setState(() {
         result = obj['result'];

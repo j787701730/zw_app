@@ -30,7 +30,7 @@ class _StockDetailState extends State<StockDetail> {
     ajax(
         'http://apicloud.mob.com/stock/global/queryDetail?code=${params['code']}&countryName=${params['countryName']}&continentType=${params['continentType']}',
         (data) {
-      print(data);
+      if (!mounted) return;
       var obj = jsonDecode(data);
       setState(() {
         result = obj['result'];

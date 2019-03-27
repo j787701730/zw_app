@@ -31,6 +31,7 @@ class _CarDetailState extends State<CarDetail> {
   _getMsg() {
     ajax('http://apicloud.mob.com/car/series/query?cid=${params['cid']}', (data) {
       print(data);
+      if(!mounted) return;
       var obj = jsonDecode(data);
       setState(() {
         result = obj['result'];

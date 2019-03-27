@@ -21,7 +21,7 @@ class _StockHomeState extends State<StockHome> {
 
   _getStock() {
     ajax('http://apicloud.mob.com/stock/global/query?', (data) {
-      print(data);
+      if(!mounted) return;
       var obj = jsonDecode(data);
       setState(() {
         result = obj['result'];

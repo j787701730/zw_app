@@ -3,6 +3,7 @@ import 'util.dart';
 import '../pageLoading.dart';
 import 'dart:convert';
 import 'package:flutter/services.dart';
+import '../loading.dart';
 
 class CategoryContent extends StatefulWidget {
   final params;
@@ -31,15 +32,17 @@ class _CategoryContentState extends State<CategoryContent> {
   Map selectVal = {'1': 'A', '2': 'B', '3': 'C', '4': 'D'};
   Map judgeVal = {'1': '正确', '0': '错误'};
   int pageTemp = 1;
+  bool requesting = false;
 
   _getCategoryContent() {
     setState(() {
-      result = {};
+      requesting = true;
     });
     ajax('http://apicloud.mob.com/tiku/shitiku/query?page=$page&size=$size&cid=${params['cid']}', (data) {
+      if(!mounted) return;
       var obj = jsonDecode(data);
-      print(obj['result']);
       setState(() {
+        requesting = false;
         result = obj['result'];
       });
     });
@@ -50,6 +53,7 @@ class _CategoryContentState extends State<CategoryContent> {
     return Scaffold(
       appBar: AppBar(
         title: Text('${params['title']}'),
+        actions: <Widget>[Loading(requesting)],
       ),
       body: result.isEmpty
           ? PageLoading()
@@ -58,7 +62,8 @@ class _CategoryContentState extends State<CategoryContent> {
                 Container(
                   padding: EdgeInsets.only(left: 20, right: 20, top: 10),
                   child: Center(
-                    child: Text('$page / ${result['total']}', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+                    child:
+                        Text('$page / ${result['total']}', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
                   ),
                 ),
                 Container(
@@ -90,9 +95,10 @@ class _CategoryContentState extends State<CategoryContent> {
                                 color: '${result['list'][0]['val']}'.contains('A') || result['list'][0]['val'] == '1'
                                     ? Colors.blue
                                     : Colors.white,
-                                textColor: '${result['list'][0]['val']}'.contains('A') || result['list'][0]['val'] == '1'
-                                    ? Colors.white
-                                    : Colors.black,
+                                textColor:
+                                    '${result['list'][0]['val']}'.contains('A') || result['list'][0]['val'] == '1'
+                                        ? Colors.white
+                                        : Colors.black,
                                 onPressed: () {},
                                 child: Text('A: ${result['list'][0]['a']}'),
                               ),
@@ -103,9 +109,10 @@ class _CategoryContentState extends State<CategoryContent> {
                                 color: '${result['list'][0]['val']}'.contains('B') || result['list'][0]['val'] == '2'
                                     ? Colors.blue
                                     : Colors.white,
-                                textColor: '${result['list'][0]['val']}'.contains('B') || result['list'][0]['val'] == '2'
-                                    ? Colors.white
-                                    : Colors.black,
+                                textColor:
+                                    '${result['list'][0]['val']}'.contains('B') || result['list'][0]['val'] == '2'
+                                        ? Colors.white
+                                        : Colors.black,
                                 onPressed: () {},
                                 child: Text('B: ${result['list'][0]['b']}'),
                               ),
@@ -116,9 +123,10 @@ class _CategoryContentState extends State<CategoryContent> {
                                 color: '${result['list'][0]['val']}'.contains('C') || result['list'][0]['val'] == '3'
                                     ? Colors.blue
                                     : Colors.white,
-                                textColor: '${result['list'][0]['val']}'.contains('C') || result['list'][0]['val'] == '3'
-                                    ? Colors.white
-                                    : Colors.black,
+                                textColor:
+                                    '${result['list'][0]['val']}'.contains('C') || result['list'][0]['val'] == '3'
+                                        ? Colors.white
+                                        : Colors.black,
                                 onPressed: () {},
                                 child: Text('C: ${result['list'][0]['c']}'),
                               ),
@@ -128,9 +136,10 @@ class _CategoryContentState extends State<CategoryContent> {
                                 color: '${result['list'][0]['val']}'.contains('D') || result['list'][0]['val'] == '4'
                                     ? Colors.blue
                                     : Colors.white,
-                                textColor: '${result['list'][0]['val']}'.contains('D') || result['list'][0]['val'] == '4'
-                                    ? Colors.white
-                                    : Colors.black,
+                                textColor:
+                                    '${result['list'][0]['val']}'.contains('D') || result['list'][0]['val'] == '4'
+                                        ? Colors.white
+                                        : Colors.black,
                                 onPressed: () {},
                                 child: Text('D: ${result['list'][0]['d']}'),
                               ),
@@ -182,8 +191,9 @@ class _CategoryContentState extends State<CategoryContent> {
                       result['list'][0]['tikuType'] == 'select'
                           ? Container(
                               padding: EdgeInsets.only(left: 20),
-                              child: Text(
-                                  result['list'][0]['val'].length == 1 ? selectVal[result['list'][0]['val']] : result['list'][0]['val']),
+                              child: Text(result['list'][0]['val'].length == 1
+                                  ? selectVal[result['list'][0]['val']]
+                                  : result['list'][0]['val']),
                             )
                           : Container(
                               padding: EdgeInsets.only(left: 20),
@@ -254,8 +264,8 @@ class _CategoryContentState extends State<CategoryContent> {
                           controller: TextEditingController.fromValue(TextEditingValue(
                               // 设置内容
                               text: '$pageTemp',
-                              selection:
-                                  TextSelection.fromPosition(TextPosition(affinity: TextAffinity.downstream, offset: '$pageTemp'.length))
+                              selection: TextSelection.fromPosition(
+                                  TextPosition(affinity: TextAffinity.downstream, offset: '$pageTemp'.length))
                               // 保持光标在最后
                               )),
                           onChanged: (val) {

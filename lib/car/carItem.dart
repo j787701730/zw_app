@@ -7,24 +7,30 @@ class CarItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: data.map<Widget>((item) {
-        return Row(
-          children: <Widget>[
-            Container(
-              padding: EdgeInsets.only(right: 10),
-              width: 220,
-              child: Text(
-                item['name'],
-                textAlign: TextAlign.right,
-              ),
+    return data == null
+        ? Container(
+            child: Center(
+              child: Text('无详细数据'),
             ),
-            Expanded(
-              child: Text(item['value']),
-            )
-          ],
-        );
-      }).toList(),
-    );
+          )
+        : Column(
+            children: data.map<Widget>((item) {
+              return Row(
+                children: <Widget>[
+                  Container(
+                    padding: EdgeInsets.only(right: 10),
+                    width: MediaQuery.of(context).size.width / 3,
+                    child: Text(
+                      item['name'],
+                      textAlign: TextAlign.right,
+                    ),
+                  ),
+                  Expanded(
+                    child: Text(item['value']),
+                  )
+                ],
+              );
+            }).toList(),
+          );
   }
 }

@@ -29,7 +29,7 @@ class _SeriesNameState extends State<SeriesName> {
 
   _getMsg() {
     ajax('http://apicloud.mob.com/car/seriesname/query?name=${params['name']}', (data) {
-      print(data);
+      if(!mounted) return;
       var obj = jsonDecode(data);
       setState(() {
         result = obj['result'];

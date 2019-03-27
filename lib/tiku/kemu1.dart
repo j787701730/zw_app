@@ -3,6 +3,7 @@ import 'util.dart';
 import '../pageLoading.dart';
 import 'dart:convert';
 import 'package:flutter/services.dart';
+import '../loading.dart';
 
 class KeMu1 extends StatefulWidget {
   @override
@@ -23,15 +24,17 @@ class _KeMu1State extends State<KeMu1> {
   Map selectVal = {'1': 'A', '2': 'B', '3': 'C', '4': 'D'};
   Map judgeVal = {'1': '正确', '0': '错误'};
   int pageTemp = 1;
+  bool requesting = false;
 
   _getKeMu1() {
     setState(() {
-      result = {};
+      requesting = true;
     });
     ajax('http://apicloud.mob.com/tiku/kemu1/query?page=$page&size=$size', (data) {
+      if(!mounted) return;
       var obj = jsonDecode(data);
-      print(obj['result']);
       setState(() {
+        requesting = false;
         result = obj['result'];
       });
     });
@@ -42,6 +45,7 @@ class _KeMu1State extends State<KeMu1> {
     return Scaffold(
       appBar: AppBar(
         title: Text('科目1'),
+        actions: <Widget>[Loading(requesting)],
       ),
       body: result.isEmpty
           ? PageLoading()
@@ -50,7 +54,8 @@ class _KeMu1State extends State<KeMu1> {
                 Container(
                   padding: EdgeInsets.only(left: 20, right: 20, top: 10),
                   child: Center(
-                    child: Text('$page / ${result['total']}', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+                    child:
+                        Text('$page / ${result['total']}', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
                   ),
                 ),
                 Container(
@@ -157,8 +162,9 @@ class _KeMu1State extends State<KeMu1> {
                       result['list'][0]['tikuType'] == 'select'
                           ? Container(
                               padding: EdgeInsets.only(left: 10),
-                              child: Text(
-                                  result['list'][0]['val'].length == 1 ? selectVal[result['list'][0]['val']] : result['list'][0]['val']),
+                              child: Text(result['list'][0]['val'].length == 1
+                                  ? selectVal[result['list'][0]['val']]
+                                  : result['list'][0]['val']),
                             )
                           : Container(
                               padding: EdgeInsets.only(left: 20),
@@ -229,8 +235,8 @@ class _KeMu1State extends State<KeMu1> {
                           controller: TextEditingController.fromValue(TextEditingValue(
                               // 设置内容
                               text: '$pageTemp',
-                              selection:
-                                  TextSelection.fromPosition(TextPosition(affinity: TextAffinity.downstream, offset: '$pageTemp'.length))
+                              selection: TextSelection.fromPosition(
+                                  TextPosition(affinity: TextAffinity.downstream, offset: '$pageTemp'.length))
                               // 保持光标在最后
                               )),
                           onChanged: (val) {
