@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'util.dart';
 import '../pageLoading.dart';
-import 'dart:convert';
 import '../plugin/smartDrawer.dart';
 import 'package:flutter_html/flutter_html.dart';
 
@@ -29,7 +28,7 @@ class _MeiRiHomeState extends State<MeiRiHome> {
       article = {};
     });
     ajax(url, (data) {
-      print(jsonEncode(data));
+//      print(jsonEncode(data));
       if (!mounted) return;
       setState(() {
         article = data['data'];
@@ -86,6 +85,7 @@ class _MeiRiHomeState extends State<MeiRiHome> {
                     decoration: BoxDecoration(border: Border(bottom: BorderSide(color: Color(0xFFE4E4E4)))),
                   ),
                   Container(
+                    padding: EdgeInsets.only(top: 10),
                     child: Center(
                       child: Text(article['author']),
                     ),
