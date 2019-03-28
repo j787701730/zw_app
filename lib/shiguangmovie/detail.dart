@@ -44,7 +44,7 @@ class _MovieDetailState extends State<MovieDetail> {
 
   _getComment(){
     ajax('https://ticket-api-m.mtime.cn/movie/hotComment.api?movieId=${props['movieId']}', (data){
-      print('评论');
+      print('评 论');
       print(jsonEncode(data));
     });
   }
