@@ -48,10 +48,11 @@ class _LocationMoviesState extends State<LocationMovies> with AutomaticKeepAlive
 
   _movieFlag(val) {
     return Container(
-      margin: EdgeInsets.only(left: 8),
-      padding: EdgeInsets.only(left: 6, right: 6, top: 4, bottom: 4),
+      margin: EdgeInsets.only(right: 6),
+      padding: EdgeInsets.only(left: 4, right: 4, top: 2, bottom: 2),
       decoration: BoxDecoration(border: Border.all(color: Colors.grey)),
-      child: Text(val),
+      child: Text(val,
+        style: TextStyle(color: Colors.black38),),
     );
   }
 
@@ -66,13 +67,13 @@ class _LocationMoviesState extends State<LocationMovies> with AutomaticKeepAlive
                   padding: EdgeInsets.all(10),
                   children: movies.map<Widget>((item) {
                     return Container(
+                      padding: EdgeInsets.only(bottom: 10),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Container(
-                            padding: EdgeInsets.only(bottom: 15),
-                            width: 150,
+                            width: 120,
                             child: Image.network(
                               item['img'],
                               fit: BoxFit.fitWidth,
@@ -88,39 +89,50 @@ class _LocationMoviesState extends State<LocationMovies> with AutomaticKeepAlive
                                     child: Row(
                                       children: <Widget>[
                                         Text(item['tCn']),
+                                      ],
+                                    ),
+                                  ),
+                                  Container(
+                                    child: Row(
+                                      children: <Widget>[
                                         item['is3D'] == true
                                             ? _movieFlag('3D')
                                             : Placeholder(
-                                                fallbackWidth: 0,
-                                                fallbackHeight: 0,
-                                                color: Colors.transparent,
-                                              ),
+                                          fallbackWidth: 0,
+                                          fallbackHeight: 0,
+                                          color: Colors.transparent,
+                                        ),
                                         item['isDMAX'] == true
                                             ? _movieFlag('DMAX')
                                             : Placeholder(
-                                                fallbackWidth: 0,
-                                                fallbackHeight: 0,
-                                                color: Colors.transparent,
-                                              ),
+                                          fallbackWidth: 0,
+                                          fallbackHeight: 0,
+                                          color: Colors.transparent,
+                                        ),
                                         item['isIMAX'] == true
                                             ? _movieFlag('IMAX')
                                             : Placeholder(
-                                                fallbackWidth: 0,
-                                                fallbackHeight: 0,
-                                                color: Colors.transparent,
-                                              ),
+                                          fallbackWidth: 0,
+                                          fallbackHeight: 0,
+                                          color: Colors.transparent,
+                                        ),
                                         item['isIMAX3D'] == true
                                             ? _movieFlag('IMAX3D')
                                             : Placeholder(
-                                                fallbackWidth: 0,
-                                                fallbackHeight: 0,
-                                                color: Colors.transparent,
-                                              ),
+                                          fallbackWidth: 0,
+                                          fallbackHeight: 0,
+                                          color: Colors.transparent,
+                                        ),
                                       ],
                                     ),
                                   ),
                                   Container(
                                     child: Text(item['movieType']),
+                                  ),
+                                  Container(
+                                    child: Row(
+                                      children: <Widget>[Text('${item['r']}'), Text('分')],
+                                    ),
                                   ),
                                   Container(
                                     child: Text('${item['d']}分钟'),
@@ -150,11 +162,6 @@ class _LocationMoviesState extends State<LocationMovies> with AutomaticKeepAlive
                               ),
                             ),
                           ),
-                          Container(
-                            child: Row(
-                              children: <Widget>[Text('${item['r']}'), Text('分')],
-                            ),
-                          )
                         ],
                       ),
                     );

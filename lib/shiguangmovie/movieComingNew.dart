@@ -9,9 +9,10 @@ class MovieComingNew extends StatefulWidget {
   _MovieComingNewState createState() => _MovieComingNewState();
 }
 
-class _MovieComingNewState extends State<MovieComingNew> with AutomaticKeepAliveClientMixin{
+class _MovieComingNewState extends State<MovieComingNew> with AutomaticKeepAliveClientMixin {
   @protected
   bool get wantKeepAlive => true;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -49,10 +50,13 @@ class _MovieComingNewState extends State<MovieComingNew> with AutomaticKeepAlive
 
   _movieFlag(val) {
     return Container(
-      margin: EdgeInsets.only(left: 8),
-      padding: EdgeInsets.only(left: 6, right: 6, top: 4, bottom: 4),
+      margin: EdgeInsets.only(right: 6),
+      padding: EdgeInsets.only(left: 4, right: 4, top: 2, bottom: 2),
       decoration: BoxDecoration(border: Border.all(color: Colors.grey)),
-      child: Text(val),
+      child: Text(
+        val,
+        style: TextStyle(color: Colors.black38),
+      ),
     );
   }
 
@@ -78,13 +82,13 @@ class _MovieComingNewState extends State<MovieComingNew> with AutomaticKeepAlive
                     Column(
                       children: movies.map<Widget>((item) {
                         return Container(
+                          padding: EdgeInsets.only(bottom: 10),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               Container(
-                                padding: EdgeInsets.only(bottom: 15),
-                                width: 150,
+                                width: 120,
                                 child: Image.network(
                                   item['image'],
                                   fit: BoxFit.fitWidth,
@@ -184,13 +188,13 @@ class _MovieComingNewState extends State<MovieComingNew> with AutomaticKeepAlive
                     Column(
                       children: moviecomings.map<Widget>((item) {
                         return Container(
+                          padding: EdgeInsets.only(bottom: 10),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               Container(
-                                padding: EdgeInsets.only(bottom: 15),
-                                width: 150,
+                                width: 120,
                                 child: Image.network(
                                   item['image'],
                                   fit: BoxFit.fitWidth,

@@ -49,10 +49,13 @@ class _HotPlayMoviesState extends State<HotPlayMovies> with AutomaticKeepAliveCl
 
   _movieFlag(val) {
     return Container(
-      margin: EdgeInsets.only(left: 8),
-      padding: EdgeInsets.only(left: 6, right: 6, top: 4, bottom: 4),
+      margin: EdgeInsets.only(right: 6),
+      padding: EdgeInsets.only(left: 4, right: 4, top: 2, bottom: 2),
       decoration: BoxDecoration(border: Border.all(color: Colors.grey)),
-      child: Text(val),
+      child: Text(
+        val,
+        style: TextStyle(color: Colors.black38),
+      ),
     );
   }
 
@@ -67,10 +70,11 @@ class _HotPlayMoviesState extends State<HotPlayMovies> with AutomaticKeepAliveCl
                   padding: EdgeInsets.all(10),
                   children: movies.map<Widget>((item) {
                     return Container(
+                      padding: EdgeInsets.only(bottom: 10),
                       child: InkWell(
-                        onTap: (){
+                        onTap: () {
                           Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) {
-                            return new MovieDetail({'title':item['titleCn'],'movieId':item['movieId']});
+                            return new MovieDetail({'title': item['titleCn'], 'movieId': item['movieId']});
                           }));
                         },
                         child: Row(
@@ -78,8 +82,7 @@ class _HotPlayMoviesState extends State<HotPlayMovies> with AutomaticKeepAliveCl
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Container(
-                              padding: EdgeInsets.only(bottom: 15),
-                              width: 150,
+                              width: 120,
                               child: Image.network(
                                 item['img'],
                                 fit: BoxFit.fitWidth,
@@ -95,39 +98,50 @@ class _HotPlayMoviesState extends State<HotPlayMovies> with AutomaticKeepAliveCl
                                       child: Row(
                                         children: <Widget>[
                                           Text(item['titleCn']),
+                                        ],
+                                      ),
+                                    ),
+                                    Container(
+                                      child: Row(
+                                        children: <Widget>[
                                           item['is3D'] == true
-                                            ? _movieFlag('3D')
-                                            : Placeholder(
-                                            fallbackWidth: 0,
-                                            fallbackHeight: 0,
-                                            color: Colors.transparent,
-                                          ),
+                                              ? _movieFlag('3D')
+                                              : Placeholder(
+                                                  fallbackWidth: 0,
+                                                  fallbackHeight: 0,
+                                                  color: Colors.transparent,
+                                                ),
                                           item['isDMAX'] == true
-                                            ? _movieFlag('DMAX')
-                                            : Placeholder(
-                                            fallbackWidth: 0,
-                                            fallbackHeight: 0,
-                                            color: Colors.transparent,
-                                          ),
+                                              ? _movieFlag('DMAX')
+                                              : Placeholder(
+                                                  fallbackWidth: 0,
+                                                  fallbackHeight: 0,
+                                                  color: Colors.transparent,
+                                                ),
                                           item['isIMAX'] == true
-                                            ? _movieFlag('IMAX')
-                                            : Placeholder(
-                                            fallbackWidth: 0,
-                                            fallbackHeight: 0,
-                                            color: Colors.transparent,
-                                          ),
+                                              ? _movieFlag('IMAX')
+                                              : Placeholder(
+                                                  fallbackWidth: 0,
+                                                  fallbackHeight: 0,
+                                                  color: Colors.transparent,
+                                                ),
                                           item['isIMAX3D'] == true
-                                            ? _movieFlag('IMAX3D')
-                                            : Placeholder(
-                                            fallbackWidth: 0,
-                                            fallbackHeight: 0,
-                                            color: Colors.transparent,
-                                          ),
+                                              ? _movieFlag('IMAX3D')
+                                              : Placeholder(
+                                                  fallbackWidth: 0,
+                                                  fallbackHeight: 0,
+                                                  color: Colors.transparent,
+                                                ),
                                         ],
                                       ),
                                     ),
                                     Container(
                                       child: Text(item['type']),
+                                    ),
+                                    Container(
+                                      child: Row(
+                                        children: <Widget>[Text('${item['ratingFinal']}'), Text('分')],
+                                      ),
                                     ),
                                     Container(
                                       child: Text('${item['length']}分钟'),
@@ -136,14 +150,14 @@ class _HotPlayMoviesState extends State<HotPlayMovies> with AutomaticKeepAliveCl
                                       child: Text('${item['rYear']}-${item['rMonth']}-${item['rDay']}'),
                                     ),
                                     item['commonSpecial'] != ''
-                                      ? Container(
-                                      child: Text(item['commonSpecial']),
-                                    )
-                                      : Placeholder(
-                                      fallbackWidth: 0,
-                                      fallbackHeight: 0,
-                                      color: Colors.transparent,
-                                    ),
+                                        ? Container(
+                                            child: Text(item['commonSpecial']),
+                                          )
+                                        : Placeholder(
+                                            fallbackWidth: 0,
+                                            fallbackHeight: 0,
+                                            color: Colors.transparent,
+                                          ),
                                     Container(
                                       child: Text('${item['directorName']}'),
                                     ),
@@ -157,11 +171,6 @@ class _HotPlayMoviesState extends State<HotPlayMovies> with AutomaticKeepAliveCl
                                 ),
                               ),
                             ),
-                            Container(
-                              child: Row(
-                                children: <Widget>[Text('${item['ratingFinal']}'), Text('分')],
-                              ),
-                            )
                           ],
                         ),
                       ),

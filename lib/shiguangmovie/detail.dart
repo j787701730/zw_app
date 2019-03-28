@@ -39,6 +39,14 @@ class _MovieDetailState extends State<MovieDetail> {
       });
     }
     _getHotPlayMovie();
+    _getComment();
+  }
+
+  _getComment(){
+    ajax('https://ticket-api-m.mtime.cn/movie/hotComment.api?movieId=${props['movieId']}', (data){
+      print('评论');
+      print(jsonEncode(data));
+    });
   }
 
   _getHotPlayMovie() {
@@ -77,7 +85,7 @@ class _MovieDetailState extends State<MovieDetail> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Container(
-                      width: 140,
+                      width: 120,
                       child: Image.network(movies['basic']['img']),
                     ),
                     Expanded(
@@ -145,6 +153,7 @@ class _MovieDetailState extends State<MovieDetail> {
                   ],
                 ),
                 Container(
+                  padding: EdgeInsets.only(top: 10),
                   child: Text('剧情: ${movies['basic']['story']}'),
                 ),
                 Container(
@@ -152,7 +161,7 @@ class _MovieDetailState extends State<MovieDetail> {
                   child: Text('导演/演员'),
                 ),
                 Container(
-                  height: 240,
+                  height: 190,
                   child: ListView(
                     scrollDirection: Axis.horizontal,
                     children: <Widget>[
@@ -232,11 +241,11 @@ class _MovieDetailState extends State<MovieDetail> {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(top: 20),
+                  margin: EdgeInsets.only(top: 10),
                   child: Text('剧照 ${movies['basic']['stageImg']['count']}张'),
                 ),
                 Container(
-                  height: 200,
+                  height: 190,
                   child: ListView(
                     scrollDirection: Axis.horizontal,
                     children: movies['basic']['stageImg']['list'].map<Widget>((item) {
@@ -245,7 +254,7 @@ class _MovieDetailState extends State<MovieDetail> {
                         padding: EdgeInsets.only(left: leftVal),
                         child: Image.network(
                           item['imgUrl'],
-                          height: 200,
+                          height: 190,
                           fit: BoxFit.fitHeight,
                         ),
                       );
@@ -253,11 +262,11 @@ class _MovieDetailState extends State<MovieDetail> {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(top: 20),
+                  margin: EdgeInsets.only(top: 10),
                   child: Text('${movies['boxOffice']['todayBoxDesUnit']}: ${movies['boxOffice']['todayBoxDes']}'),
                 ),
                 Container(
-                  margin: EdgeInsets.only(top: 20),
+                  margin: EdgeInsets.only(top: 10),
                   child: Text('${movies['boxOffice']['totalBoxUnit']}: ${movies['boxOffice']['totalBoxDes']}'),
                 ),
               ],
