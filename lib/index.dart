@@ -7,6 +7,7 @@ import 'tiku/home.dart';
 import 'stock/home.dart';
 import 'car/home.dart';
 import 'meiriyiwen/home.dart';
+import 'transit/home.dart';
 
 class Index extends StatelessWidget {
   DateTime _lastPressedAt;
@@ -59,7 +60,8 @@ class Index extends StatelessWidget {
                       return new TiKuHome();
                     }));
                   },
-                ),ListTile(
+                ),
+                ListTile(
                   title: Text('汽车信息'),
                   onTap: () {
                     Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) {
@@ -74,11 +76,20 @@ class Index extends StatelessWidget {
                       return new MeiRiHome();
                     }));
                   },
-                ),ListTile(
+                ),
+                ListTile(
                   title: Text('全球股指'),
                   onTap: () {
                     Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) {
                       return new StockHome();
+                    }));
+                  },
+                ),
+                ListTile(
+                  title: Text('公交地铁(福州)'),
+                  onTap: () {
+                    Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) {
+                      return new TransitHome();
                     }));
                   },
                 ),

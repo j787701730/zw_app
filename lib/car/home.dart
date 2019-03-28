@@ -21,7 +21,7 @@ class _CarHomeState extends State<CarHome> {
 
   _getCarBrand() {
     ajax('http://apicloud.mob.com/car/brand/query?', (data) {
-      if(!mounted) return;
+      if (!mounted) return;
       var obj = jsonDecode(data);
       setState(() {
         result = obj['result'];
@@ -64,15 +64,17 @@ class _CarHomeState extends State<CarHome> {
                                 }));
                               },
                               child: Container(
+                                height: 46,
                                 decoration: BoxDecoration(
-                                    border: Border(
-                                  bottom: BorderSide(color: Colors.blue),
-                                  top: BorderSide(color: Colors.blue),
-                                  left: BorderSide(color: Colors.blue),
-                                  right: BorderSide(color: Colors.blue),
+                                    border: Border.all(
+                                  color: Colors.blue,
                                 )),
                                 padding: EdgeInsets.all(10),
-                                child: Text('${son['type']}'),
+                                child: Text(
+                                  '${son['type']}',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(fontSize: 14),
+                                ),
                               ),
                             ),
                           );
