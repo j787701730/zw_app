@@ -8,6 +8,7 @@ import 'stock/home.dart';
 import 'car/home.dart';
 import 'meiriyiwen/home.dart';
 import 'transit/home.dart';
+import 'shiguangmovie/home.dart';
 
 class Index extends StatelessWidget {
   DateTime _lastPressedAt;
@@ -26,6 +27,14 @@ class Index extends StatelessWidget {
                   onTap: () {
                     Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) {
                       return new MovieHome();
+                    }));
+                  },
+                ),
+                ListTile(
+                  title: Text('Time电影'),
+                  onTap: () {
+                    Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) {
+                      return new ShiGuangHome();
                     }));
                   },
                 ),
