@@ -11,7 +11,9 @@ class Loading extends StatelessWidget {
       offstage: !requesting,
       child: Center(
         child: Container(
-          padding: EdgeInsets.all(10),
+          width: 24,
+          height: 24,
+          margin: EdgeInsets.only(right: 10),
           child: CircularProgressIndicator(
             valueColor: AlwaysStoppedAnimation(Colors.white),
           ),

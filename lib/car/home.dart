@@ -11,6 +11,8 @@ class CarHome extends StatefulWidget {
 
 class _CarHomeState extends State<CarHome> {
   List result = [];
+  List resultTemp = [];
+  bool loading = true;
 
   @override
   void initState() {
@@ -22,11 +24,49 @@ class _CarHomeState extends State<CarHome> {
   _getCarBrand() {
     ajax('http://apicloud.mob.com/car/brand/query?', (data) {
       if (!mounted) return;
+      print(data);
       var obj = jsonDecode(data);
       setState(() {
         result = obj['result'];
+        resultTemp = obj['result'];
+        loading = false;
       });
     });
+  }
+
+  bool offstage = true;
+  String filterVal = '';
+
+  _filterResult() {
+    List arr = [];
+    if (filterVal == '') {
+      setState(() {
+        result = resultTemp;
+      });
+    } else {
+      for (Map res in resultTemp) {
+        if (res['name'].contains(filterVal) ||
+            res['name'].contains(filterVal.toLowerCase()) ||
+            res['name'].contains(filterVal.toUpperCase())) {
+          arr.add(res);
+        } else {
+          List sonList = [];
+          for (Map son in res['son']) {
+            if (son['type'].contains(filterVal) ||
+                son['type'].contains(filterVal.toLowerCase()) ||
+                son['type'].contains(filterVal.toUpperCase())) {
+              sonList.add(son);
+            }
+          }
+          if (sonList.length > 0) {
+            arr.add({'name': res['name'], 'son': sonList});
+          }
+        }
+      }
+      setState(() {
+        result = arr;
+      });
+    }
   }
 
   @override
@@ -34,56 +74,109 @@ class _CarHomeState extends State<CarHome> {
     return Scaffold(
       appBar: AppBar(
         title: Text('汽车品牌'),
+        actions: <Widget>[
+          IconButton(
+              icon: Icon(Icons.search),
+              onPressed: () {
+                setState(() {
+                  offstage = !offstage;
+                });
+              })
+        ],
       ),
-      body: result.isEmpty
+      body: loading
           ? PageLoading()
           : ListView(
-              children: result.map<Widget>((item) {
-                return Container(
-                  padding: EdgeInsets.only(left: 20, right: 20, top: 20),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Container(
-                        padding: EdgeInsets.only(bottom: 10),
-                        child: Center(
-                          child: Text(
-                            item['name'],
-                            style: TextStyle(fontWeight: FontWeight.bold),
+              padding: EdgeInsets.only(
+                left: 15,
+                right: 15,
+              ),
+              children: <Widget>[
+                Offstage(
+                  offstage: offstage,
+                  child: Container(
+                    child: Row(
+                      children: <Widget>[
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width - 80,
+                          child: TextField(
+                            controller: TextEditingController.fromValue(TextEditingValue(
+                                // 设置内容
+                                text: '$filterVal',
+                                selection: TextSelection.fromPosition(
+                                    TextPosition(affinity: TextAffinity.downstream, offset: '$filterVal'.length))
+                                // 保持光标在最后
+                                )),
+                            decoration: InputDecoration(
+                                contentPadding: const EdgeInsets.symmetric(vertical: 11.0, horizontal: 10),
+                                border: OutlineInputBorder(borderSide: BorderSide(color: Colors.black38))),
+                            onChanged: (val) {
+                              setState(() {
+                                filterVal = val;
+                              });
+                            },
                           ),
                         ),
-                      ),
-                      Wrap(
-                        children: item['son'].map<Widget>((son) {
+                        IconButton(
+                          icon: Icon(
+                            Icons.search,
+                            color: Colors.blue,
+                          ),
+                          onPressed: _filterResult,
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+                result.isEmpty
+                    ? Container(
+                        padding: EdgeInsets.only(top: 20),
+                        child: Center(
+                          child: Text('搜索无结果'),
+                        ),
+                      )
+                    : Column(
+                        children: result.map<Widget>((item) {
                           return Container(
-                            padding: EdgeInsets.only(right: 10, bottom: 10),
-                            child: InkWell(
-                              onTap: () {
-                                Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) {
-                                  return new SeriesName({'name': '${son['type']}'});
-                                }));
-                              },
-                              child: Container(
-                                height: 46,
-                                decoration: BoxDecoration(
-                                    border: Border.all(
-                                  color: Colors.blue,
-                                )),
-                                padding: EdgeInsets.all(10),
-                                child: Text(
-                                  '${son['type']}',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(fontSize: 14),
+                            padding: EdgeInsets.only(top: 10),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Container(
+                                  padding: EdgeInsets.only(bottom: 8),
+                                  child: Center(
+                                    child: Text(
+                                      item['name'],
+                                      style: TextStyle(fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
                                 ),
-                              ),
+                                Wrap(
+                                  children: item['son'].map<Widget>((son) {
+                                    return Container(
+                                        padding: EdgeInsets.only(right: 8, bottom: 8),
+                                        height: 34,
+                                        child: OutlineButton(
+                                          textTheme: ButtonTextTheme.primary,
+                                          borderSide: BorderSide(color: Colors.blue),
+                                          onPressed: () {
+                                            Navigator.push(context,
+                                                new MaterialPageRoute(builder: (BuildContext context) {
+                                              return new SeriesName({'name': '${son['type']}'});
+                                            }));
+                                          },
+                                          padding: EdgeInsets.only(left: 4, right: 4, top: 0, bottom: 0),
+                                          child: Text('${son['type']}'),
+                                        ));
+                                  }).toList(),
+                                )
+                              ],
                             ),
                           );
                         }).toList(),
                       )
-                    ],
-                  ),
-                );
-              }).toList(),
+              ],
             ),
     );
   }

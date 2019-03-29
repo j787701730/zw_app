@@ -11,13 +11,6 @@ class KeMu1 extends StatefulWidget {
 }
 
 class _KeMu1State extends State<KeMu1> {
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    _getKeMu1();
-  }
-
   int page = 1;
   int size = 1;
   Map result = {};
@@ -25,6 +18,21 @@ class _KeMu1State extends State<KeMu1> {
   Map judgeVal = {'1': '正确', '0': '错误'};
   int pageTemp = 1;
   bool requesting = false;
+
+  FocusNode _contentFocusNode = FocusNode();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _getKeMu1();
+  }
+
+  @override
+  void dispose() {
+    _contentFocusNode.dispose();
+    super.dispose();
+  }
 
   _getKeMu1() {
     setState(() {
@@ -54,7 +62,8 @@ class _KeMu1State extends State<KeMu1> {
                 Container(
                   padding: EdgeInsets.only(left: 20, right: 20, top: 10),
                   child: Center(
-                    child: Text('$page / ${result['total']}', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+                    child:
+                        Text('$page / ${result['total']}', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
                   ),
                 ),
                 Container(
@@ -81,8 +90,10 @@ class _KeMu1State extends State<KeMu1> {
                         child: Wrap(
                           children: <Widget>[
                             Container(
-                              padding: EdgeInsets.only(right: 10),
+                              height: 34,
+                              padding: EdgeInsets.only(right: 10, bottom: 6),
                               child: FlatButton(
+                                padding: EdgeInsets.only(left: 6, right: 6),
                                 color: result['list'][0]['val'] == '1' ? Colors.blue : Colors.white,
                                 textColor: result['list'][0]['val'] == '1' ? Colors.white : Colors.black,
                                 onPressed: () {},
@@ -90,31 +101,50 @@ class _KeMu1State extends State<KeMu1> {
                               ),
                             ),
                             Container(
-                              padding: EdgeInsets.only(right: 10),
+                              height: 34,
+                              padding: EdgeInsets.only(right: 10, bottom: 6),
                               child: FlatButton(
+                                padding: EdgeInsets.only(left: 6, right: 6),
                                 color: result['list'][0]['val'] == '2' ? Colors.blue : Colors.white,
                                 textColor: result['list'][0]['val'] == '2' ? Colors.white : Colors.black,
                                 onPressed: () {},
                                 child: Text('B: ${result['list'][0]['b']}'),
                               ),
                             ),
-                            Container(
-                              padding: EdgeInsets.only(right: 10),
-                              child: FlatButton(
-                                color: result['list'][0]['val'] == '3' ? Colors.blue : Colors.white,
-                                textColor: result['list'][0]['val'] == '3' ? Colors.white : Colors.black,
-                                onPressed: () {},
-                                child: Text('C: ${result['list'][0]['c']}'),
-                              ),
-                            ),
-                            Container(
-                              child: FlatButton(
-                                color: result['list'][0]['val'] == '4' ? Colors.blue : Colors.white,
-                                textColor: result['list'][0]['val'] == '4' ? Colors.white : Colors.black,
-                                onPressed: () {},
-                                child: Text('D: ${result['list'][0]['d']}'),
-                              ),
-                            ),
+                            result['list'][0]['c'] == ''
+                                ? Placeholder(
+                                    fallbackWidth: 0,
+                                    fallbackHeight: 0,
+                                    color: Colors.transparent,
+                                  )
+                                : Container(
+                                    height: 34,
+                                    padding: EdgeInsets.only(right: 10, bottom: 6),
+                                    child: FlatButton(
+                                      padding: EdgeInsets.only(left: 6, right: 6),
+                                      color: result['list'][0]['val'] == '3' ? Colors.blue : Colors.white,
+                                      textColor: result['list'][0]['val'] == '3' ? Colors.white : Colors.black,
+                                      onPressed: () {},
+                                      child: Text('C: ${result['list'][0]['c']}'),
+                                    ),
+                                  ),
+                            result['list'][0]['d'] == ''
+                                ? Placeholder(
+                                    fallbackWidth: 0,
+                                    fallbackHeight: 0,
+                                    color: Colors.transparent,
+                                  )
+                                : Container(
+                                    height: 34,
+                                    padding: EdgeInsets.only(right: 10, bottom: 6),
+                                    child: FlatButton(
+                                      padding: EdgeInsets.only(left: 6, right: 6),
+                                      color: result['list'][0]['val'] == '4' ? Colors.blue : Colors.white,
+                                      textColor: result['list'][0]['val'] == '4' ? Colors.white : Colors.black,
+                                      onPressed: () {},
+                                      child: Text('D: ${result['list'][0]['d']}'),
+                                    ),
+                                  ),
                           ],
                         ),
                       )
@@ -123,18 +153,22 @@ class _KeMu1State extends State<KeMu1> {
                         child: Wrap(
                           children: <Widget>[
                             Container(
-                              padding: EdgeInsets.only(right: 10),
+                              height: 34,
+                              padding: EdgeInsets.only(right: 10, bottom: 6),
                               child: FlatButton(
                                 onPressed: () {},
+                                padding: EdgeInsets.only(left: 6, right: 6),
                                 color: result['list'][0]['val'] == '1' ? Colors.blue : Colors.white,
                                 textColor: result['list'][0]['val'] == '1' ? Colors.white : Colors.black,
                                 child: Icon(Icons.check),
                               ),
                             ),
                             Container(
-                              padding: EdgeInsets.only(right: 10),
+                              height: 34,
+                              padding: EdgeInsets.only(right: 10, bottom: 6),
                               child: FlatButton(
                                 onPressed: () {},
+                                padding: EdgeInsets.only(left: 6, right: 6),
                                 color: result['list'][0]['val'] == '0' ? Colors.blue : Colors.white,
                                 textColor: result['list'][0]['val'] == '0' ? Colors.white : Colors.black,
                                 child: Icon(Icons.clear),
@@ -167,8 +201,9 @@ class _KeMu1State extends State<KeMu1> {
                       result['list'][0]['tikuType'] == 'select'
                           ? Container(
                               padding: EdgeInsets.only(left: 10),
-                              child: Text(
-                                  result['list'][0]['val'].length == 1 ? selectVal[result['list'][0]['val']] : result['list'][0]['val']),
+                              child: Text(result['list'][0]['val'].length == 1
+                                  ? selectVal[result['list'][0]['val']]
+                                  : result['list'][0]['val']),
                             )
                           : Container(
                               padding: EdgeInsets.only(left: 20),
@@ -178,20 +213,19 @@ class _KeMu1State extends State<KeMu1> {
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.only(left: 20, right: 20, bottom: 10),
-                  child: Text(
-                    '解释',
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                  padding: EdgeInsets.only(
+                    left: 20,
+                    right: 20,
                   ),
-                ),
-                Container(
-                  padding: EdgeInsets.only(left: 20, right: 20, bottom: 10),
                   child: Text(result['list'][0]['explainText']),
                 ),
                 Container(
-                  padding: EdgeInsets.only(left: 20, right: 20, bottom: 10),
+                  padding: EdgeInsets.only(
+                    left: 20,
+                    right: 20,
+                  ),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
                       Offstage(
                         offstage: page == 1,
@@ -236,13 +270,12 @@ class _KeMu1State extends State<KeMu1> {
                       SizedBox(
                         width: 100,
                         child: TextField(
+                          focusNode: _contentFocusNode,
                           controller: TextEditingController.fromValue(TextEditingValue(
                               // 设置内容
                               text: '$pageTemp',
-                              selection:
-                                  TextSelection.fromPosition(TextPosition(affinity: TextAffinity.downstream, offset: '$pageTemp'.length))
-                              // 保持光标在最后
-                              )),
+                              selection: TextSelection.fromPosition(
+                                  TextPosition(affinity: TextAffinity.downstream, offset: '$pageTemp'.length)))),
                           onChanged: (val) {
                             if (int.parse(val) > result['total']) {
                               setState(() {
@@ -262,6 +295,7 @@ class _KeMu1State extends State<KeMu1> {
                       ),
                       RaisedButton(
                         onPressed: () {
+                          _contentFocusNode.unfocus();
                           setState(() {
                             page = pageTemp;
                             _getKeMu1();
