@@ -25,6 +25,13 @@ class _KeMu4State extends State<KeMu4> {
   Map judgeVal = {'1': '正确', '0': '错误'};
   int pageTemp = 1;
   bool requesting = false;
+  FocusNode _contentFocusNode = FocusNode();
+
+  @override
+  void dispose() {
+    _contentFocusNode.dispose();
+    super.dispose();
+  }
 
   _getKeMu4() {
     setState(() {
@@ -257,6 +264,7 @@ class _KeMu4State extends State<KeMu4> {
                       SizedBox(
                         width: 100,
                         child: TextField(
+                          focusNode: _contentFocusNode,
                           controller: TextEditingController.fromValue(TextEditingValue(
                               // 设置内容
                               text: '$pageTemp',
@@ -282,6 +290,7 @@ class _KeMu4State extends State<KeMu4> {
                       ),
                       RaisedButton(
                         onPressed: () {
+                          _contentFocusNode.unfocus();
                           setState(() {
                             page = pageTemp;
                             _getKeMu4();

@@ -33,6 +33,12 @@ class _CategoryContentState extends State<CategoryContent> {
   Map judgeVal = {'1': '正确', '0': '错误'};
   int pageTemp = 1;
   bool requesting = false;
+  FocusNode _contentFocusNode = FocusNode();
+  @override
+  void dispose() {
+    _contentFocusNode.dispose();
+    super.dispose();
+  }
 
   _getCategoryContent() {
     setState(() {
@@ -273,6 +279,7 @@ class _CategoryContentState extends State<CategoryContent> {
                       SizedBox(
                         width: 100,
                         child: TextField(
+                          focusNode: _contentFocusNode,
                           controller: TextEditingController.fromValue(TextEditingValue(
                               // 设置内容
                               text: '$pageTemp',
@@ -299,6 +306,7 @@ class _CategoryContentState extends State<CategoryContent> {
                       ),
                       RaisedButton(
                         onPressed: () {
+                          _contentFocusNode.unfocus();
                           setState(() {
                             page = pageTemp;
                             _getCategoryContent();
