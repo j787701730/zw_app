@@ -271,6 +271,7 @@ class _KeMu1State extends State<KeMu1> {
                         width: 100,
                         child: TextField(
                           focusNode: _contentFocusNode,
+
                           controller: TextEditingController.fromValue(TextEditingValue(
                               // 设置内容
                               text: '$pageTemp',

@@ -3,6 +3,8 @@ import 'util.dart';
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../pageLoading.dart';
+import 'miniComments.dart';
+import 'imageAll.dart';
 
 class MovieDetail extends StatefulWidget {
   final props;
@@ -27,6 +29,8 @@ class _MovieDetailState extends State<MovieDetail> {
 
   Map currCity = {"count": '47', "id": '328', "n": "福州", "pinyinFull": "Fuzhou", "pinyinShort": "fz"};
   Map movies = {};
+  Map mini = {};
+  Map plus = {};
 
   _readCity() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
@@ -42,10 +46,15 @@ class _MovieDetailState extends State<MovieDetail> {
     _getComment();
   }
 
-  _getComment(){
-    ajax('https://ticket-api-m.mtime.cn/movie/hotComment.api?movieId=${props['movieId']}', (data){
+  _getComment() {
+    ajax('https://ticket-api-m.mtime.cn/movie/hotComment.api?movieId=${props['movieId']}', (data) {
       print('评 论');
       print(jsonEncode(data));
+      if (!mounted) return;
+      setState(() {
+        mini = data['data']['mini'];
+        plus = data['data']['plus'];
+      });
     });
   }
 
@@ -242,7 +251,14 @@ class _MovieDetailState extends State<MovieDetail> {
                 ),
                 Container(
                   margin: EdgeInsets.only(top: 10),
-                  child: Text('剧照 ${movies['basic']['stageImg']['count']}张'),
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) {
+                        return new ImageAll({'title': props['title'], 'movieId': props['movieId']});
+                      }));
+                    },
+                    child: Text('剧照 ${movies['basic']['stageImg']['count']}张'),
+                  ),
                 ),
                 Container(
                   height: 190,
@@ -269,6 +285,14 @@ class _MovieDetailState extends State<MovieDetail> {
                   margin: EdgeInsets.only(top: 10),
                   child: Text('${movies['boxOffice']['totalBoxUnit']}: ${movies['boxOffice']['totalBoxDes']}'),
                 ),
+                Container(
+                  child: Text('短评'),
+                ),
+                MiniComments(mini),
+                Container(
+                  child: Text('精评'),
+                ),
+                MiniComments(plus)
               ],
             ),
     );
