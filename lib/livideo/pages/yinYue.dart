@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import '../util.dart';
 import '../otherListView.dart';
 
-class ShiJie extends StatefulWidget {
+class YinYue extends StatefulWidget {
   @override
-  _ShiJieState createState() => _ShiJieState();
+  _YinYueState createState() => _YinYueState();
 }
 
-class _ShiJieState extends State<ShiJie> with AutomaticKeepAliveClientMixin {
+class _YinYueState extends State<YinYue> with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -15,13 +18,10 @@ class _ShiJieState extends State<ShiJie> with AutomaticKeepAliveClientMixin {
     _getList();
   }
 
-  @override
-  bool get wantKeepAlive => true;
-
   Map dataList = {};
 
   _getList() {
-    ajax('http://app.pearvideo.com/clt/jsp/v2/getCategoryConts.jsp?categoryId=2&hotPageidx=1', (data) {
+    ajax('http://app.pearvideo.com/clt/jsp/v2/getCategoryConts.jsp?categoryId=59&hotPageidx=1', (data) {
       setState(() {
         dataList = data;
       });

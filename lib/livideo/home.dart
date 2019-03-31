@@ -1,6 +1,16 @@
 import 'package:flutter/material.dart';
 import 'pages/toutiao.dart';
 import 'pages/shehui.dart';
+import 'pages/shijie.dart';
+import 'pages/caiFu.dart';
+import 'pages/yuLe.dart';
+import 'pages/shengHuo.dart';
+import 'pages/meiShi.dart';
+import 'pages/keJi.dart';
+import 'pages/tiYu.dart';
+import 'pages/xinZhi.dart';
+import 'pages/qiChe.dart';
+import 'pages/yinYue.dart';
 
 class LiHome extends StatefulWidget {
   @override
@@ -12,16 +22,16 @@ class _LiHomeState extends State<LiHome> with SingleTickerProviderStateMixin {
   List categoryList = [
     {'categoryId': '0', 'name': '头条'},
     {'categoryId': '1', 'name': '社会'},
-//    {'categoryId': '2', 'name': '世界'},
-//    {'categoryId': '3', 'name': '财富'},
-//    {'categoryId': '4', 'name': '娱乐'},
-//    {'categoryId': '5', 'name': '生活'},
-//    {'categoryId': '6', 'name': '美食'},
-//    {'categoryId': '8', 'name': '科技'},
-//    {'categoryId': '9', 'name': '体育'},
-//    {'categoryId': '10', 'name': '新知'},
-//    {'categoryId': '31', 'name': '汽车'},
-//    {'categoryId': '59', 'name': '音乐'}
+    {'categoryId': '2', 'name': '世界'},
+    {'categoryId': '3', 'name': '财富'},
+    {'categoryId': '4', 'name': '娱乐'},
+    {'categoryId': '5', 'name': '生活'},
+    {'categoryId': '6', 'name': '美食'},
+    {'categoryId': '8', 'name': '科技'},
+    {'categoryId': '9', 'name': '体育'},
+    {'categoryId': '10', 'name': '新知'},
+    {'categoryId': '31', 'name': '汽车'},
+    {'categoryId': '59', 'name': '音乐'}
   ];
 
   @override
@@ -39,8 +49,7 @@ class _LiHomeState extends State<LiHome> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('视频'),
-        bottom: TabBar(
+        title: TabBar(
           isScrollable: true,
           tabs: categoryList.map<Widget>((item) {
             return (Tab(child: Text(item['name'])));
@@ -51,16 +60,16 @@ class _LiHomeState extends State<LiHome> with SingleTickerProviderStateMixin {
       body: new TabBarView(controller: _tabController, children: <Widget>[
         TouTiao(),
         SheHui(),
-//        TouTiao(),
-//        TouTiao(),
-//        TouTiao(),
-//        TouTiao(),
-//        TouTiao(),
-//        TouTiao(),
-//        TouTiao(),
-//        TouTiao(),
-//        TouTiao(),
-//        TouTiao(),
+        ShiJie(),
+        CaiFu(),
+        YuLe(),
+        ShengHuo(),
+        MeiShi(),
+        KeJi(),
+        TiYu(),
+        XinZhi(),
+        QiChe(),
+        YinYue()
       ]),
     );
   }
