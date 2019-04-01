@@ -19,6 +19,8 @@ class _SeriesNameState extends State<SeriesName> {
   _SeriesNameState(this.params);
 
   List result = [];
+  String msg = '';
+  bool isLoading = false;
 
   @override
   void initState() {
@@ -28,12 +30,26 @@ class _SeriesNameState extends State<SeriesName> {
   }
 
   _getMsg() {
+    setState(() {
+      isLoading = true;
+    });
     ajax('http://apicloud.mob.com/car/seriesname/query?name=${params['name']}', (data) {
-      if(!mounted) return;
+      print(data);
+      if (!mounted) return;
       var obj = jsonDecode(data);
-      setState(() {
-        result = obj['result'];
-      });
+      if (obj['retCode'] == '200') {
+        setState(() {
+          result = obj['result'];
+          msg = obj['msg'];
+          isLoading = false;
+        });
+      } else {
+        setState(() {
+          result = [];
+          msg = obj['msg'];
+          isLoading = false;
+        });
+      }
     });
   }
 
@@ -43,38 +59,47 @@ class _SeriesNameState extends State<SeriesName> {
       appBar: AppBar(
         title: Text('${params['name']}'),
       ),
-      body: result.isEmpty
+      body: isLoading
           ? PageLoading()
-          : ListView(
-              children: result.map<Widget>((item) {
-                return Card(
-                  child: InkWell(
-                    onTap: () {
-                      Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) {
-                        return new CarDetail({
-                          'brandName': '${item['brandName']}',
-                          'seriesName': '${item['seriesName']}',
-                          'cid': item['carId']
-                        });
-                      }));
-                    },
-                    child: Column(
-                      children: <Widget>[
-                        Container(
-                          child: Text(item['brandName']),
-                        ),
-                        Container(
-                          child: Text(item['seriesName']),
-                        ),
-                        Container(
-                          child: Text(item['guidePrice']),
-                        ),
-                      ],
-                    ),
+          : result.isEmpty
+              ? Container(
+                  child: Center(
+                    child: Text('$msg'),
                   ),
-                );
-              }).toList(),
-            ),
+                )
+              : ListView(
+                  children: result.map<Widget>((item) {
+                    return Card(
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) {
+                            return new CarDetail({
+                              'brandName': '${item['brandName']}',
+                              'seriesName': '${item['seriesName']}',
+                              'cid': item['carId']
+                            });
+                          }));
+                        },
+                        child: Column(
+                          children: <Widget>[
+                            Container(
+                              padding: EdgeInsets.only(top: 4, bottom: 4),
+                              child: Text(item['brandName']),
+                            ),
+                            Container(
+                              padding: EdgeInsets.only(bottom: 4),
+                              child: Text(item['seriesName']),
+                            ),
+                            Container(
+                              padding: EdgeInsets.only(bottom: 4),
+                              child: Text(item['guidePrice']),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  }).toList(),
+                ),
     );
   }
 }

@@ -5,6 +5,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../pageLoading.dart';
 import 'miniComments.dart';
 import 'imageAll.dart';
+import 'movieCreditsWithTypes.dart';
+import 'video.dart';
 
 class MovieDetail extends StatefulWidget {
   final props;
@@ -15,10 +17,13 @@ class MovieDetail extends StatefulWidget {
   _MovieDetailState createState() => _MovieDetailState(props);
 }
 
-class _MovieDetailState extends State<MovieDetail> {
+class _MovieDetailState extends State<MovieDetail> with AutomaticKeepAliveClientMixin {
   final Map props;
 
   _MovieDetailState(this.props);
+
+  @override
+  bool get wantKeepAlive => true;
 
   @override
   void initState() {
@@ -80,6 +85,7 @@ class _MovieDetailState extends State<MovieDetail> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
       appBar: AppBar(
         title: Text(props['title']),
@@ -166,8 +172,39 @@ class _MovieDetailState extends State<MovieDetail> {
                   child: Text('剧情: ${movies['basic']['story']}'),
                 ),
                 Container(
+                  padding: EdgeInsets.only(top: 10),
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) {
+                        return new Video({'title': props['title'], 'movieId': props['movieId']});
+                      }));
+                    },
+                    child: Text('预告${movies['basic']['video']['count']}'),
+                  ),
+                ),
+                Container(
+                  height: 120,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(image: NetworkImage(movies['basic']['video']['img']), fit: BoxFit.contain),
+                  ),
+                  child: Center(
+                    child: Icon(
+                      Icons.play_circle_outline,
+                      color: Colors.white,
+                      size: 50,
+                    ),
+                  ),
+                ),
+                Container(
                   margin: EdgeInsets.only(top: 20),
-                  child: Text('导演/演员'),
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) {
+                        return new MovieCreditsWithTypes({'title': props['title'], 'movieId': props['movieId']});
+                      }));
+                    },
+                    child: Text('影人'),
+                  ),
                 ),
                 Container(
                   height: 190,

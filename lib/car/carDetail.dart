@@ -29,7 +29,6 @@ class _CarDetailState extends State<CarDetail> {
 
   _getMsg() {
     ajax('http://apicloud.mob.com/car/series/query?cid=${params['cid']}', (data) {
-      print(data);
       if (!mounted) return;
       var obj = jsonDecode(data);
       setState(() {
@@ -54,6 +53,7 @@ class _CarDetailState extends State<CarDetail> {
                     Container(
                       child: Image.network(
                         res['carImage'],
+                        width: MediaQuery.of(context).size.width,
                         fit: BoxFit.fitWidth,
                       ),
                     ),

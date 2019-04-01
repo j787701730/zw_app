@@ -13,12 +13,19 @@ class _CarHomeState extends State<CarHome> {
   List result = [];
   List resultTemp = [];
   bool loading = true;
+  FocusNode _contentFocusNode = FocusNode();
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     _getCarBrand();
+  }
+
+  @override
+  void dispose() {
+    _contentFocusNode.dispose();
+    super.dispose();
   }
 
   _getCarBrand() {
@@ -38,6 +45,7 @@ class _CarHomeState extends State<CarHome> {
   String filterVal = '';
 
   _filterResult() {
+    _contentFocusNode.unfocus();
     List arr = [];
     if (filterVal == '') {
       setState(() {
@@ -86,97 +94,104 @@ class _CarHomeState extends State<CarHome> {
       ),
       body: loading
           ? PageLoading()
-          : ListView(
-              padding: EdgeInsets.only(
-                left: 15,
-                right: 15,
-              ),
-              children: <Widget>[
-                Offstage(
-                  offstage: offstage,
-                  child: Container(
-                    child: Row(
-                      children: <Widget>[
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width - 80,
-                          child: TextField(
-                            controller: TextEditingController.fromValue(TextEditingValue(
-                                // 设置内容
-                                text: '$filterVal',
-                                selection: TextSelection.fromPosition(
-                                    TextPosition(affinity: TextAffinity.downstream, offset: '$filterVal'.length))
-                                // 保持光标在最后
-                                )),
-                            decoration: InputDecoration(
-                                contentPadding: const EdgeInsets.symmetric(vertical: 11.0, horizontal: 10),
-                                border: OutlineInputBorder(borderSide: BorderSide(color: Colors.black38))),
-                            onChanged: (val) {
-                              setState(() {
-                                filterVal = val;
-                              });
-                            },
+          : GestureDetector(
+              behavior: HitTestBehavior.translucent,
+              onTap: () {
+                _contentFocusNode.unfocus();
+              },
+              child: ListView(
+                padding: EdgeInsets.only(
+                  left: 15,
+                  right: 15,
+                ),
+                children: <Widget>[
+                  Offstage(
+                    offstage: offstage,
+                    child: Container(
+                      child: Row(
+                        children: <Widget>[
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width - 80,
+                            child: TextField(
+                              focusNode: _contentFocusNode,
+                              controller: TextEditingController.fromValue(TextEditingValue(
+                                  // 设置内容
+                                  text: '$filterVal',
+                                  selection: TextSelection.fromPosition(
+                                      TextPosition(affinity: TextAffinity.downstream, offset: '$filterVal'.length))
+                                  // 保持光标在最后
+                                  )),
+                              decoration: InputDecoration(
+                                  contentPadding: const EdgeInsets.symmetric(vertical: 11.0, horizontal: 10),
+                                  border: OutlineInputBorder(borderSide: BorderSide(color: Colors.black38))),
+                              onChanged: (val) {
+                                setState(() {
+                                  filterVal = val;
+                                });
+                              },
+                            ),
                           ),
-                        ),
-                        IconButton(
-                          icon: Icon(
-                            Icons.search,
-                            color: Colors.blue,
-                          ),
-                          onPressed: _filterResult,
-                        )
-                      ],
+                          IconButton(
+                            icon: Icon(
+                              Icons.search,
+                              color: Colors.blue,
+                            ),
+                            onPressed: _filterResult,
+                          )
+                        ],
+                      ),
                     ),
                   ),
-                ),
-                result.isEmpty
-                    ? Container(
-                        padding: EdgeInsets.only(top: 20),
-                        child: Center(
-                          child: Text('搜索无结果'),
-                        ),
-                      )
-                    : Column(
-                        children: result.map<Widget>((item) {
-                          return Container(
-                            padding: EdgeInsets.only(top: 10),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                Container(
-                                  padding: EdgeInsets.only(bottom: 8),
-                                  child: Center(
-                                    child: Text(
-                                      item['name'],
-                                      style: TextStyle(fontWeight: FontWeight.bold),
+                  result.isEmpty
+                      ? Container(
+                          padding: EdgeInsets.only(top: 20),
+                          child: Center(
+                            child: Text('搜索无结果'),
+                          ),
+                        )
+                      : Column(
+                          children: result.map<Widget>((item) {
+                            return Container(
+                              padding: EdgeInsets.only(top: 10),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Container(
+                                    padding: EdgeInsets.only(bottom: 8),
+                                    child: Center(
+                                      child: Text(
+                                        item['name'],
+                                        style: TextStyle(fontWeight: FontWeight.bold),
+                                      ),
                                     ),
                                   ),
-                                ),
-                                Wrap(
-                                  children: item['son'].map<Widget>((son) {
-                                    return Container(
-                                        padding: EdgeInsets.only(right: 8, bottom: 8),
-                                        height: 34,
-                                        child: OutlineButton(
-                                          textTheme: ButtonTextTheme.primary,
-                                          borderSide: BorderSide(color: Colors.blue),
-                                          onPressed: () {
-                                            Navigator.push(context,
-                                                new MaterialPageRoute(builder: (BuildContext context) {
-                                              return new SeriesName({'name': '${son['type']}'});
-                                            }));
-                                          },
-                                          padding: EdgeInsets.only(left: 4, right: 4, top: 0, bottom: 0),
-                                          child: Text('${son['type']}'),
-                                        ));
-                                  }).toList(),
-                                )
-                              ],
-                            ),
-                          );
-                        }).toList(),
-                      )
-              ],
+                                  Wrap(
+                                    children: item['son'].map<Widget>((son) {
+                                      return Container(
+                                          padding: EdgeInsets.only(right: 8, bottom: 8),
+                                          height: 34,
+                                          child: OutlineButton(
+                                            textTheme: ButtonTextTheme.primary,
+                                            borderSide: BorderSide(color: Colors.blue),
+                                            onPressed: () {
+                                              Navigator.push(context,
+                                                  new MaterialPageRoute(builder: (BuildContext context) {
+                                                return new SeriesName({'name': '${son['type']}'});
+                                              }));
+                                            },
+                                            padding: EdgeInsets.only(left: 4, right: 4, top: 0, bottom: 0),
+                                            child: Text('${son['type']}'),
+                                          ));
+                                    }).toList(),
+                                  )
+                                ],
+                              ),
+                            );
+                          }).toList(),
+                        )
+                ],
+              ),
             ),
     );
   }
