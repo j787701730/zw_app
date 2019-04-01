@@ -7,6 +7,8 @@ import 'miniComments.dart';
 import 'imageAll.dart';
 import 'movieCreditsWithTypes.dart';
 import 'video.dart';
+import 'mini.dart';
+import 'plus.dart';
 
 class MovieDetail extends StatefulWidget {
   final props;
@@ -323,11 +325,25 @@ class _MovieDetailState extends State<MovieDetail> with AutomaticKeepAliveClient
                   child: Text('${movies['boxOffice']['totalBoxUnit']}: ${movies['boxOffice']['totalBoxDes']}'),
                 ),
                 Container(
-                  child: Text('短评'),
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) {
+                        return new Mini({'title': props['title'], 'movieId': props['movieId']});
+                      }));
+                    },
+                    child: Text('短评'),
+                  ),
                 ),
                 MiniComments(mini),
                 Container(
-                  child: Text('精评'),
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) {
+                        return new Plus({'title': props['title'], 'movieId': props['movieId']});
+                      }));
+                    },
+                    child: Text('精评'),
+                  ),
                 ),
                 MiniComments(plus)
               ],
