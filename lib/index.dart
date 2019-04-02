@@ -10,6 +10,7 @@ import 'meiriyiwen/home.dart';
 import 'transit/home.dart';
 import 'shiguangmovie/home.dart';
 import 'wallpaper/home.dart';
+import 'reader/home.dart';
 
 class Index extends StatelessWidget {
   DateTime _lastPressedAt;
@@ -92,6 +93,13 @@ class Index extends StatelessWidget {
                   onTap: () {
                     Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) {
                       return new WallPaperHome();
+                    }));
+                  },
+                ),ListTile(
+                  title: Text('小说'),
+                  onTap: () {
+                    Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) {
+                      return new ReaderHome();
                     }));
                   },
                 ),

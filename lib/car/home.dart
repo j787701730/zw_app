@@ -31,7 +31,6 @@ class _CarHomeState extends State<CarHome> {
   _getCarBrand() {
     ajax('http://apicloud.mob.com/car/brand/query?', (data) {
       if (!mounted) return;
-      print(data);
       var obj = jsonDecode(data);
       setState(() {
         result = obj['result'];
@@ -169,20 +168,39 @@ class _CarHomeState extends State<CarHome> {
                                   Wrap(
                                     children: item['son'].map<Widget>((son) {
                                       return Container(
-                                          padding: EdgeInsets.only(right: 8, bottom: 8),
-                                          height: 34,
-                                          child: OutlineButton(
-                                            textTheme: ButtonTextTheme.primary,
-                                            borderSide: BorderSide(color: Colors.blue),
-                                            onPressed: () {
-                                              Navigator.push(context,
-                                                  new MaterialPageRoute(builder: (BuildContext context) {
-                                                return new SeriesName({'name': '${son['type']}'});
-                                              }));
-                                            },
-                                            padding: EdgeInsets.only(left: 4, right: 4, top: 0, bottom: 0),
-                                            child: Text('${son['type']}'),
-                                          ));
+                                        margin: EdgeInsets.only(right: 6, bottom: 6),
+                                        padding: EdgeInsets.only(left: 6, right: 6, top: 4),
+                                        height: 28,
+                                        decoration: BoxDecoration(border: Border.all(color: Colors.blue)),
+//                                          child: OutlineButton(
+//                                            textTheme: ButtonTextTheme.primary,
+//                                            borderSide: BorderSide(color: Colors.blue),
+//                                            onPressed: () {
+//                                              Navigator.push(context,
+//                                                  new MaterialPageRoute(builder: (BuildContext context) {
+//                                                return new SeriesName({'name': '${son['type']}'});
+//                                              }));
+//                                            },
+//                                            padding: EdgeInsets.only(left: 4, right: 4, top: 0, bottom: 0),
+//                                            child: Text('${son['type']}'),
+//                                          )
+                                        child: InkWell(
+                                          onTap: () {
+                                            Navigator.push(context,
+                                                new MaterialPageRoute(builder: (BuildContext context) {
+                                              return new SeriesName({'name': '${son['type']}'});
+                                            }));
+                                          },
+                                          child: Baseline(
+                                            baseline: 14,
+                                            baselineType: TextBaseline.alphabetic,
+                                            child: Text(
+                                              '${son['type']}',
+                                              style: TextStyle(color: Colors.blue),
+                                            ),
+                                          ),
+                                        ),
+                                      );
                                     }).toList(),
                                   )
                                 ],
