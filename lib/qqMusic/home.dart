@@ -39,7 +39,8 @@ class _QQMusicHomeState extends State<QQMusicHome> with SingleTickerProviderStat
   List categoryList = [
     {'categoryId': '0', 'name': '新歌点榜'},
     {'categoryId': '1', 'name': '随机推荐'},
-    {'categoryId': '3', 'name': '我的收藏'},
+    {'categoryId': '2', 'name': '我的收藏'},
+    {'categoryId': '3', 'name': '歌曲搜索'},
   ];
 
   getSongUrl(songData) {
@@ -49,7 +50,10 @@ class _QQMusicHomeState extends State<QQMusicHome> with SingleTickerProviderStat
       if (!mounted) return;
       Map obj = jsonDecode(data);
       String vkey = obj['data']['items'][0]['vkey'];
-
+      setState(() {
+        playUrl = 'http://ws.stream.qqmusic.qq.com/C400${songData['songmid']}.m4a?fromtag=0&guid=126548448&vkey=$vkey';
+        songName = songData['songname'];
+      });
       if (myPlaySongsList.length == 0) {
         changePlayList(songData, true);
       } else {
@@ -62,11 +66,6 @@ class _QQMusicHomeState extends State<QQMusicHome> with SingleTickerProviderStat
           }
         }
       }
-
-      setState(() {
-        playUrl = 'http://ws.stream.qqmusic.qq.com/C400${songData['songmid']}.m4a?fromtag=0&guid=126548448&vkey=$vkey';
-        songName = songData['songname'];
-      });
     });
   }
 
@@ -168,16 +167,6 @@ class _QQMusicHomeState extends State<QQMusicHome> with SingleTickerProviderStat
             }).toList(),
             controller: _tabController,
           ),
-          actions: <Widget>[
-            IconButton(
-              icon: Icon(Icons.search),
-              onPressed: () {
-                Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) {
-                  return new SearchSongs(getSongUrl, changeFavourite, myFavouriteSongs);
-                }));
-              },
-            )
-          ],
         ),
         body: Container(
           child: Column(
@@ -187,7 +176,8 @@ class _QQMusicHomeState extends State<QQMusicHome> with SingleTickerProviderStat
                 child: new TabBarView(controller: _tabController, children: <Widget>[
                   NewSongsTop(getSongUrl, changeFavourite, myFavouriteSongs),
                   RandomSongs(getSongUrl, changeFavourite, myFavouriteSongs),
-                  MyFavourite(getSongUrl, changeFavourite, myFavouriteSongs)
+                  MyFavourite(getSongUrl, changeFavourite, myFavouriteSongs),
+                  SearchSongs(getSongUrl, changeFavourite, myFavouriteSongs)
                 ]),
               ),
               Container(

@@ -18,13 +18,12 @@ class _SearchSongsState extends State<SearchSongs> with AutomaticKeepAliveClient
   void initState() {
     // TODO: implement initState
     super.initState();
-    _getList();
   }
 
   @override
   bool get wantKeepAlive => true;
   List songList = [];
-  String searchWord = '殇雪';
+  String searchWord = '';
   int count = 0;
 
   _getList() {
@@ -56,93 +55,113 @@ class _SearchSongsState extends State<SearchSongs> with AutomaticKeepAliveClient
     super.build(context);
     count = 0;
     return Scaffold(
-      appBar: AppBar(
-        title: Container(
-          child: TextField(
-            style: TextStyle(color: Colors.white),
-            decoration: InputDecoration(hintText: '搜索歌曲', hintStyle: TextStyle(color: Colors.white)),
-            onChanged: queryChange,
-          ),
-        ),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.search),
-            onPressed: _getList,
-          )
-        ],
-      ),
       body: ListView(
-        children: songList.map<Widget>((item) {
-          count += 1;
-          bool flag = false;
-          if (item != null) {
-            for (var o in widget.myFavouriteSongs) {
-              if (item['songmid'] == o['songmid']) {
-                flag = true;
-                break;
-              }
-            }
-          }
-          return Container(
-            padding: EdgeInsets.only(bottom: 6),
+        children: <Widget>[
+          Container(
             child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Container(
-                  width: 40,
-                  child: Center(
-                    child: Text('$count'),
-                  ),
-                ),
                 Expanded(
                   child: Container(
-                    padding: EdgeInsets.only(left: 10, right: 10),
-                    child: InkWell(
-                      onTap: () {
-                        widget.getSongUrl({'songmid': '${item['songmid']}',
-                          'songname': '${item['songname']}',
-                          'singer': '${item['data']['singer'][0]['name']}'});
-                      },
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                    padding: EdgeInsets.only(left: 20),
+                    height: 40,
+                    child: TextField(
+                      decoration: InputDecoration(
+                        hintText: '搜索歌曲',
+                      ),
+                      onChanged: queryChange,
+                    ),
+                  ),
+                ),
+                IconButton(
+                  icon: Icon(Icons.search),
+                  onPressed: _getList,
+                )
+              ],
+            ),
+          ),
+          songList.isEmpty
+              ? Placeholder(
+                  fallbackHeight: 1,
+                  color: Colors.transparent,
+                )
+              : Column(
+                  children: songList.map<Widget>((item) {
+                    count += 1;
+                    bool flag = false;
+                    if (item != null) {
+                      for (var o in widget.myFavouriteSongs) {
+                        if (item['songmid'] == o['songmid']) {
+                          flag = true;
+                          break;
+                        }
+                      }
+                    }
+                    return Container(
+                      padding: EdgeInsets.only(bottom: 6),
+                      child: Row(
                         children: <Widget>[
                           Container(
-                            child: Text(
-                              '${item['songname']}',
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
+                            width: 40,
+                            child: Center(
+                              child: Text('$count'),
+                            ),
+                          ),
+                          Expanded(
+                            child: Container(
+                              padding: EdgeInsets.only(left: 10, right: 10),
+                              child: InkWell(
+                                onTap: () {
+                                  widget.getSongUrl({
+                                    'songmid': '${item['songmid']}',
+                                    'songname': '${item['songname']}',
+                                    'singer': '${item['singer'][0]['name']}'
+                                  });
+                                },
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Container(
+                                      child: Text(
+                                        '${item['songname']}',
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ),
+                                    Container(
+                                      child: Text(
+                                        item['singer'][0]['name'],
+                                        style: TextStyle(color: Color(0xff777777)),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
                             ),
                           ),
                           Container(
-                            child: Text(
-                              item['singer'][0]['name'],
-                              style: TextStyle(color: Color(0xff777777)),
+                            width: 30,
+                            child: InkWell(
+                              onTap: () {
+                                widget.changeFavourite({
+                                  'songmid': '${item['songmid']}',
+                                  'songname': '${item['songname']}',
+                                  'singer': '${item['singer'][0]['name']}',
+                                }, !flag);
+                              },
+                              child: Icon(
+                                flag ? Icons.favorite : Icons.favorite_border,
+                                color: Color(0xFF31C27C),
+                              ),
                             ),
                           )
                         ],
                       ),
-                    ),
-                  ),
-                ),
-                Container(
-                  width: 30,
-                  child: InkWell(
-                    onTap: () {
-                      widget.changeFavourite({
-                        'songmid': '${item['songmid']}',
-                        'songname': '${item['songname']}',
-                        'singer': '${item['singer'][0]['name']}',
-                      }, !flag);
-                    },
-                    child: Icon(
-                      flag ? Icons.favorite : Icons.favorite_border,
-                      color: Color(0xFF31C27C),
-                    ),
-                  ),
+                    );
+                  }).toList(),
                 )
-              ],
-            ),
-          );
-        }).toList(),
+        ],
       ),
     );
   }

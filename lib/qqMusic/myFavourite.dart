@@ -48,7 +48,7 @@ class _MyFavouriteState extends State<MyFavourite> {
                             onTap: () {
                               widget.getSongUrl({'songmid': '${item['songmid']}',
                                 'songname': '${item['songname']}',
-                                'singer': '${item['data']['singer'][0]['name']}'});
+                                'singer': '${item['name']}'});
                             },
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
