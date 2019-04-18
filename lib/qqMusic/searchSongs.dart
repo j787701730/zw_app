@@ -84,6 +84,7 @@ class _SearchSongsState extends State<SearchSongs> with AutomaticKeepAliveClient
           songList.isEmpty
               ? Placeholder(
                   fallbackHeight: 1,
+                  fallbackWidth: 1,
                   color: Colors.transparent,
                 )
               : Column(

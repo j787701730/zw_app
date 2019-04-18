@@ -16,6 +16,22 @@ import 'qqMusic/home.dart';
 class Index extends StatelessWidget {
   DateTime _lastPressedAt;
 
+  List pages = [
+    {'name': '豆瓣电影', 'icon': Icons.movie, 'home': MovieHome()},
+    {'name': '时光电影', 'icon': Icons.local_movies, 'home': ShiGuangHome()},
+    {'name': 'QQ音乐', 'icon': Icons.music_note, 'home': QQMusicHome()},
+    {'name': '天气', 'icon': Icons.filter_drama, 'home': WeatherHome()},
+    {'name': '梨视频', 'icon': Icons.video_label, 'home': LiHome()},
+    {'name': 'ONE', 'icon': Icons.video_label, 'home': OneHome()},
+    {'name': '驾照题库', 'icon': Icons.directions_car, 'home': TiKuHome()},
+    {'name': '汽车信息', 'icon': Icons.local_taxi, 'home': CarHome()},
+    {'name': '每日一文', 'icon': Icons.import_contacts, 'home': MeiRiHome()},
+    {'name': '360壁纸', 'icon': Icons.wallpaper, 'home': WallPaperHome()},
+    {'name': '小说', 'icon': Icons.book, 'home': ReaderHome()},
+    {'name': '全球股指', 'icon': Icons.trending_up, 'home': StockHome()},
+    {'name': '公交(福州)', 'icon': Icons.directions_bus, 'home': TransitHome()},
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,192 +40,43 @@ class Index extends StatelessWidget {
         ),
         body: WillPopScope(
             child: ListView(
+              padding: EdgeInsets.only(top: 10),
               children: <Widget>[
                 Wrap(
-                  children: <Widget>[
-                    Container(
-                      height: 40,
+                  children: pages.map<Widget>((item) {
+                    return Container(
                       width: MediaQuery.of(context).size.width / 4,
                       child: InkWell(
-                        child: Center(
-                          child: Text('电影'),
+                        child: Container(
+                          padding: EdgeInsets.only(top: 10, bottom: 10),
+                          child: Center(
+                            child: Column(
+                              children: <Widget>[
+                                Icon(
+                                  item['icon'],
+                                  size: 30,
+                                  color: Color(0xff666666),
+                                ),
+                                Container(
+                                  height: 20,
+                                  child: Center(
+                                    child: Text(
+                                      '${item['name']}',
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
                         ),
                         onTap: () {
                           Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) {
-                            return new MovieHome();
+                            return item['home'];
                           }));
                         },
                       ),
-                    ),
-                    Container(
-                      height: 40,
-                      width: MediaQuery.of(context).size.width / 4,
-                      child: InkWell(
-                        child: Center(
-                          child: Text('Time电影'),
-                        ),
-                        onTap: () {
-                          Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) {
-                            return new ShiGuangHome();
-                          }));
-                        },
-                      ),
-                    ),
-                    Container(
-                      height: 40,
-                      width: MediaQuery.of(context).size.width / 4,
-                      child: InkWell(
-                        child: Center(
-                          child: Text('QQ音乐'),
-                        ),
-                        onTap: () {
-                          Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) {
-                            return new QQMusicHome();
-                          }));
-                        },
-                      ),
-                    ),
-                    Container(
-                      height: 40,
-                      width: MediaQuery.of(context).size.width / 4,
-                      child: InkWell(
-                        child: Center(
-                          child: Text('天气'),
-                        ),
-                        onTap: () {
-                          Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) {
-                            return new WeatherHome();
-                          }));
-                        },
-                      ),
-                    ),
-                    Container(
-                      height: 40,
-                      width: MediaQuery.of(context).size.width / 4,
-                      child: InkWell(
-                        child: Center(
-                          child: Text('视频'),
-                        ),
-                        onTap: () {
-                          Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) {
-                            return new LiHome();
-                          }));
-                        },
-                      ),
-                    ),
-                    Container(
-                      height: 40,
-                      width: MediaQuery.of(context).size.width / 4,
-                      child: InkWell(
-                        child: Center(
-                          child: Text('ONE'),
-                        ),
-                        onTap: () {
-                          Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) {
-                            return new OneHome();
-                          }));
-                        },
-                      ),
-                    ),
-                    Container(
-                      height: 40,
-                      width: MediaQuery.of(context).size.width / 4,
-                      child: InkWell(
-                        child: Center(
-                          child: Text('驾照题库'),
-                        ),
-                        onTap: () {
-                          Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) {
-                            return new TiKuHome();
-                          }));
-                        },
-                      ),
-                    ),
-                    Container(
-                      height: 40,
-                      width: MediaQuery.of(context).size.width / 4,
-                      child: InkWell(
-                        child: Center(
-                          child: Text('汽车信息'),
-                        ),
-                        onTap: () {
-                          Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) {
-                            return new CarHome();
-                          }));
-                        },
-                      ),
-                    ),
-                    Container(
-                      height: 40,
-                      width: MediaQuery.of(context).size.width / 4,
-                      child: InkWell(
-                        child: Center(
-                          child: Text('每日一文'),
-                        ),
-                        onTap: () {
-                          Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) {
-                            return new MeiRiHome();
-                          }));
-                        },
-                      ),
-                    ),
-                    Container(
-                      height: 40,
-                      width: MediaQuery.of(context).size.width / 4,
-                      child: InkWell(
-                        child: Center(
-                          child: Text('360壁纸'),
-                        ),
-                        onTap: () {
-                          Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) {
-                            return new WallPaperHome();
-                          }));
-                        },
-                      ),
-                    ),
-                    Container(
-                      height: 40,
-                      width: MediaQuery.of(context).size.width / 4,
-                      child: InkWell(
-                        child: Center(
-                          child: Text('小说'),
-                        ),
-                        onTap: () {
-                          Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) {
-                            return new ReaderHome();
-                          }));
-                        },
-                      ),
-                    ),
-                    Container(
-                      height: 40,
-                      width: MediaQuery.of(context).size.width / 4,
-                      child: InkWell(
-                        child: Center(
-                          child: Text('全球股指'),
-                        ),
-                        onTap: () {
-                          Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) {
-                            return new StockHome();
-                          }));
-                        },
-                      ),
-                    ),
-                    Container(
-                      height: 40,
-                      width: MediaQuery.of(context).size.width / 4,
-                      child: InkWell(
-                        child: Center(
-                          child: Text('公交地铁(福州)'),
-                        ),
-                        onTap: () {
-                          Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) {
-                            return new TransitHome();
-                          }));
-                        },
-                      ),
-                    ),
-                  ],
+                    );
+                  }).toList(),
                 )
               ],
             ),
