@@ -40,7 +40,7 @@ class _QQMusicHomeState extends State<QQMusicHome> with SingleTickerProviderStat
 
   List result = [];
   List categoryList = [
-    {'categoryId': '0', 'name': '新歌'},
+    {'categoryId': '0', 'name': '榜单'},
     {'categoryId': '1', 'name': '随机'},
     {'categoryId': '2', 'name': '收藏'},
     {'categoryId': '3', 'name': '搜索'},
@@ -183,8 +183,8 @@ class _QQMusicHomeState extends State<QQMusicHome> with SingleTickerProviderStat
         appBar: AppBar(
           title: TabBar(
             labelPadding: EdgeInsets.only(
-              left: 10,
-              right: 10,
+              left: 12,
+              right: 12,
             ),
             isScrollable: true,
             tabs: categoryList.map<Widget>((item) {

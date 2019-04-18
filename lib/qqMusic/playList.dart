@@ -25,7 +25,12 @@ class _PlayListState extends State<PlayList> {
             }
 
             return Container(
-              padding: EdgeInsets.only(bottom: 6),height: 40,
+              padding: EdgeInsets.only(bottom: 5,top: 5),
+              decoration: BoxDecoration(
+                border: Border(
+                  bottom: BorderSide(color: Color(0xffeeeeee),width: 1)
+                )
+              ),
               child: Row(
                 children: <Widget>[
                   Container(

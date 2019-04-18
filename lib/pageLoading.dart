@@ -9,7 +9,6 @@ class PageLoading extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(color: Color.fromRGBO(0, 0, 0, 0.2)),
       child: Center(
         child: SizedBox(
             width: 50,
