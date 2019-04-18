@@ -26,7 +26,6 @@ class _BookInfoState extends State<BookInfo> {
 
   _getbooks() {
     ajax('http://api.zhuishushenqi.com/book/${widget.props['id']}', (data) {
-      print(data);
       if (!mounted) return;
       setState(() {
         info = data;

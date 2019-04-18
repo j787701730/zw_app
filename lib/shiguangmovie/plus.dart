@@ -24,7 +24,6 @@ class _PlusState extends State<Plus> {
   _getCts() {
     ajax('https://api-m.mtime.cn/Movie/HotLongComments.api?pageIndex=1&movieId=${widget.props['movieId']}', (data) {
       if (!mounted) return;
-      print(data);
       setState(() {
         comments = data['comments'];
       });

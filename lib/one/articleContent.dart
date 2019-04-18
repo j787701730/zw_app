@@ -33,7 +33,6 @@ class _ArticleContentState extends State<ArticleContent> {
 
   _getArticle() {
     ajax('http://v3.wufazhuce.com:8000/api/essay/${params['item_id']}', (data) {
-      print(jsonEncode(data));
       if (!mounted) return;
       if (data['res'] == 0) {
         setState(() {
@@ -45,8 +44,6 @@ class _ArticleContentState extends State<ArticleContent> {
 
   _getComment() {
     ajax('http://v3.wufazhuce.com:8000/api/comment/praiseandtime/essay/${params['item_id']}/0', (data) {
-      print('评论');
-      print(jsonEncode(data));
       if (!mounted) return;
       if (data['res'] == 0) {
         setState(() {

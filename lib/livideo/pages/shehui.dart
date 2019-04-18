@@ -24,6 +24,7 @@ class _SheHuiState extends State<SheHui> with AutomaticKeepAliveClientMixin{
     ajax(
       'http://app.pearvideo.com/clt/jsp/v2/getCategoryConts.jsp?categoryId=1&hotPageidx=1',
         (data) {
+          if (!mounted) return;
         setState(() {
           dataList = data;
         });

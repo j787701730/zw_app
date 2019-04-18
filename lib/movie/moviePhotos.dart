@@ -36,6 +36,7 @@ class _MoviePhotosState extends State<MoviePhotos> {
       photos = [];
     });
     ajax('https://api.douban.com/v2/movie/subject/${params['id']}/photos?start=$start&count=$count', (data) {
+      if (!mounted) return;
       setState(() {
         photos = data['photos'];
         total = data['total'];

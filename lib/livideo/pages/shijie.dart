@@ -22,6 +22,7 @@ class _ShiJieState extends State<ShiJie> with AutomaticKeepAliveClientMixin {
 
   _getList() {
     ajax('http://app.pearvideo.com/clt/jsp/v2/getCategoryConts.jsp?categoryId=2&hotPageidx=1', (data) {
+      if (!mounted) return;
       setState(() {
         dataList = data;
       });

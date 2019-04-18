@@ -22,6 +22,7 @@ class _TiYuState extends State<TiYu> with AutomaticKeepAliveClientMixin {
 
   _getList() {
     ajax('http://app.pearvideo.com/clt/jsp/v2/getCategoryConts.jsp?categoryId=9&hotPageidx=1', (data) {
+      if (!mounted) return;
       setState(() {
         dataList = data;
       });

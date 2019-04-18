@@ -100,6 +100,7 @@ class _SearchSongsState extends State<SearchSongs> with AutomaticKeepAliveClient
                     }
                     return Container(
                       padding: EdgeInsets.only(bottom: 6),
+                      height: 40,
                       child: Row(
                         children: <Widget>[
                           Container(
@@ -121,6 +122,7 @@ class _SearchSongsState extends State<SearchSongs> with AutomaticKeepAliveClient
                                 },
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.center,
                                   children: <Widget>[
                                     Container(
                                       child: Text(

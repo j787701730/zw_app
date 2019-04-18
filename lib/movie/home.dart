@@ -34,6 +34,7 @@ class _MovieHomeState extends State<MovieHome> with AutomaticKeepAliveClientMixi
       subjects = [];
     });
     ajax('https://api.douban.com/v2/movie/in_theaters?city=$city&start=$start&count=$count', (data) {
+      if (!mounted) return;
       setState(() {
         subjects = data['subjects'];
         total = data['total'];

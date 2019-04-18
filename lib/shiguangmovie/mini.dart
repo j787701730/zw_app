@@ -24,7 +24,6 @@ class _MiniState extends State<Mini> {
   _getCts() {
     ajax('https://api-m.mtime.cn/Showtime/HotMovieComments.api?pageIndex=1&movieId=${widget.props['movieId']}', (data) {
       if (!mounted) return;
-      print(data);
       setState(() {
         cts = data['data']['cts'];
       });

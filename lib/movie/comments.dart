@@ -35,6 +35,7 @@ class _CommentsState extends State<Comments> {
       comments = [];
     });
     ajax('https://api.douban.com/v2/movie/subject/${param['id']}/comments?start=$start&count=$count', (data) {
+      if (!mounted) return;
       setState(() {
         comments = data['comments'];
         total = data['total'];

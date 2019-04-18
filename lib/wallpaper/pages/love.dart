@@ -21,6 +21,7 @@ class _LoveState extends State<Love> with AutomaticKeepAliveClientMixin {
 
   _getList() {
     ajax('http://wallpaper.apc.360.cn/index.php?c=WallPaperAndroid&a=getAppsByCategory&cid=30&start=0&count=20', (data) {
+      if (!mounted) return;
       setState(() {
         dataList = data;
       });

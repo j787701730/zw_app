@@ -36,6 +36,7 @@ class _ReviewsState extends State<Reviews> {
       reviews = [];
     });
     ajax('https://api.douban.com/v2/movie/subject/${param['id']}/reviews?start=$start&count=$count', (data) {
+      if (!mounted) return;
       setState(() {
         reviews = data['reviews'];
         total = data['total'];

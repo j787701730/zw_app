@@ -21,6 +21,7 @@ class _CaiFuState extends State<CaiFu> with AutomaticKeepAliveClientMixin {
 
   _getList() {
     ajax('http://app.pearvideo.com/clt/jsp/v2/getCategoryConts.jsp?categoryId=3&hotPageidx=1', (data) {
+      if (!mounted) return;
       setState(() {
         dataList = data;
       });

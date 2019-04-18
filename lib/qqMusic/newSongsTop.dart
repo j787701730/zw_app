@@ -61,7 +61,9 @@ class _NewSongsTopState extends State<NewSongsTop> with AutomaticKeepAliveClient
                 }
                 return Container(
                   padding: EdgeInsets.only(bottom: 6),
+                  height: 40,
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Container(
                         width: 40,
@@ -82,6 +84,7 @@ class _NewSongsTopState extends State<NewSongsTop> with AutomaticKeepAliveClient
                             },
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
                                 Container(
                                   child: Text(

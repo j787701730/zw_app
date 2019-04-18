@@ -149,7 +149,6 @@ class _CategoryState extends State<Category> {
     ajax(
         'https://api.zhuishushenqi.com/book/by-categories?gender=${widget.props['gender']}&type=hot&major=${widget.props['major']}&minor=&start=0&limit=20',
         (data) {
-      print(data);
       if (!mounted) return;
       setState(() {
         books = data['books'];

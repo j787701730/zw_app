@@ -35,8 +35,6 @@ class _OneHomeState extends State<OneHome> {
 
   _getidlist() {
     ajax('http://v3.wufazhuce.com:8000/api/onelist/idlist/', (data) {
-      print(jsonEncode(data));
-
       if (!mounted) return;
       if (data['res'] == 0) {
         List<int> arr = [];
@@ -55,7 +53,6 @@ class _OneHomeState extends State<OneHome> {
 
   _getonelist() {
     ajax('http://v3.wufazhuce.com:8000/api/onelist/$oneListID/0', (data) {
-      print(jsonEncode(data['data']));
       if (!mounted) return;
       if (data['res'] == 0) {
         setState(() {

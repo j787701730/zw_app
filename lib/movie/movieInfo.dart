@@ -40,6 +40,7 @@ class _MovieInfoState extends State<MovieInfo> with AutomaticKeepAliveClientMixi
 
   _getInfo() {
     ajax('http://api.douban.com/v2/movie/subject/$id?city=$city', (data) {
+      if (!mounted) return;
       String roleTmp = '';
       String pubdateTmp = '';
       if (data['directors'] != null) {

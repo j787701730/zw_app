@@ -24,7 +24,6 @@ class _ChaptersState extends State<Chapters> {
 
   _getChapters() {
     ajax('http://api.zhuishushenqi.com/mix-atoc/${widget.props['id']}?view=chapters', (data) {
-      print(data);
       if (!mounted) return;
       setState(() {
         mixToc = data['mixToc'];

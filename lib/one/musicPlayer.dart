@@ -143,7 +143,6 @@ class _MusicPlayerState extends State<MusicPlayer> {
     });
 
     _playerErrorSubscription = _audioPlayer.onPlayerError.listen((msg) {
-      print('audioPlayer error : $msg');
       setState(() {
         _playerState = PlayerState.stopped;
         _duration = new Duration(seconds: 0);

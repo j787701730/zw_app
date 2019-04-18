@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'dart:async';
+import 'playList.dart';
 
 enum PlayerState { stopped, playing, paused }
 
 class Player extends StatefulWidget {
   final playUrl;
-  final songName;
+  final autoPlayBool;
+  final currPlaySong;
   final myPlaySongsList;
   final getSongUrl;
   final changePlayList;
 
-  Player(this.playUrl, this.songName, this.myPlaySongsList, this.getSongUrl, this.changePlayList);
+  Player(this.playUrl, this.autoPlayBool, this.currPlaySong, this.myPlaySongsList, this.getSongUrl, this.changePlayList);
 
   @override
   _PlayerState createState() => _PlayerState();
@@ -44,6 +46,7 @@ class _PlayerState extends State<Player> {
     // TODO: implement initState
     super.initState();
     _audioPlayer = new AudioPlayer(mode: PlayerMode.MEDIA_PLAYER);
+    AudioPlayer.logEnabled = false;
   }
 
   @override
@@ -63,11 +66,18 @@ class _PlayerState extends State<Player> {
     if (oldWidget.playUrl != widget.playUrl) {
       if (!mounted) return;
       _stop();
-      setState(() {
-        _initAudioPlayer();
-        _position = Duration(seconds: 0);
-        _play();
-      });
+      if (widget.autoPlayBool) {
+        setState(() {
+          _initAudioPlayer();
+          _position = Duration(seconds: 0);
+          _play();
+        });
+      } else {
+        setState(() {
+          _initAudioPlayer();
+          _position = Duration(seconds: 0);
+        });
+      }
     }
   }
 
@@ -88,7 +98,7 @@ class _PlayerState extends State<Player> {
   _playNext() {
     if (widget.myPlaySongsList.length > 0) {
       for (var o in widget.myPlaySongsList) {
-        if (o['songname'] == widget.songName) {
+        if (o['songmid'] == widget.currPlaySong['songmid']) {
           if (widget.myPlaySongsList.indexOf(o) == widget.myPlaySongsList.length - 1) {
             widget.getSongUrl(widget.myPlaySongsList[0]);
           } else {
@@ -218,7 +228,7 @@ class _PlayerState extends State<Player> {
                       child: Container(
                         padding: EdgeInsets.only(left: 6),
                         child: Text(
-                          '${widget.songName}',
+                          '${widget.currPlaySong == null ? '' : widget.currPlaySong['songname']}',
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(fontSize: 12),
@@ -252,90 +262,6 @@ class _PlayerState extends State<Player> {
               ],
             ),
           ),
-        ),
-        IconButton(
-          color: Color(0xFF31C27C),
-          icon: Icon(Icons.list),
-          iconSize: 20,
-          onPressed: () {
-            showModalBottomSheet(
-                context: context,
-                builder: (BuildContext context) {
-                  return Container(
-                    height: MediaQuery.of(context).size.height * 0.7,
-                    padding: EdgeInsets.only(top: 20),
-                    child: ListView(
-                      children: <Widget>[
-                        Column(
-                          children: widget.myPlaySongsList.map<Widget>((item) {
-                            return Container(
-                              padding: EdgeInsets.only(bottom: 6),
-                              child: Row(
-                                children: <Widget>[
-                                  Container(
-                                    width: 40,
-                                    child: Center(
-                                      child: Text('${widget.myPlaySongsList.indexOf(item) + 1}'),
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: Container(
-                                      padding: EdgeInsets.only(left: 10, right: 10),
-                                      child: InkWell(
-                                        onTap: () {
-                                          widget.getSongUrl({
-                                            'songmid': '${item['songmid']}',
-                                            'songname': '${item['songname']}',
-                                            'singer': '${item['singer']}'
-                                          });
-                                        },
-                                        child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: <Widget>[
-                                            Container(
-                                              child: Text(
-                                                '${item['songname']}',
-                                                maxLines: 1,
-                                                overflow: TextOverflow.ellipsis,
-                                              ),
-                                            ),
-                                            Container(
-                                              child: Text(
-                                                item['singer'],
-                                                style: TextStyle(color: Color(0xff777777)),
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Container(
-                                    width: 30,
-                                    child: InkWell(
-                                      onTap: () {
-                                        widget.changePlayList({
-                                          'songmid': '${item['songmid']}',
-                                          'songname': '${item['songname']}',
-                                          'singer': '${item['singer']}',
-                                        }, false);
-                                      },
-                                      child: Icon(
-                                        Icons.clear,
-                                        color: Color(0xFF31C27C),
-                                      ),
-                                    ),
-                                  )
-                                ],
-                              ),
-                            );
-                          }).toList(),
-                        )
-                      ],
-                    ),
-                  );
-                });
-          },
         )
       ],
     );

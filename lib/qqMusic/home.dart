@@ -7,6 +7,7 @@ import 'myFavourite.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 import 'player.dart';
+import 'playList.dart';
 
 class QQMusicHome extends StatefulWidget {
   @override
@@ -17,9 +18,10 @@ class _QQMusicHomeState extends State<QQMusicHome> with SingleTickerProviderStat
   TabController _tabController;
 
   String playUrl;
-  String songName;
+  Map currPlaySong;
   List myFavouriteSongs;
   List myPlaySongsList;
+  bool autoPlayBool = false;
 
   @override
   void initState() {
@@ -27,6 +29,7 @@ class _QQMusicHomeState extends State<QQMusicHome> with SingleTickerProviderStat
     _tabController = new TabController(vsync: this, length: categoryList.length);
     getFavoriteSongs();
     getMyPlaySongsList();
+    getCurrPlaySong();
   }
 
   @override
@@ -37,13 +40,14 @@ class _QQMusicHomeState extends State<QQMusicHome> with SingleTickerProviderStat
 
   List result = [];
   List categoryList = [
-    {'categoryId': '0', 'name': '新歌点榜'},
-    {'categoryId': '1', 'name': '随机推荐'},
-    {'categoryId': '2', 'name': '我的收藏'},
-    {'categoryId': '3', 'name': '歌曲搜索'},
+    {'categoryId': '0', 'name': '新歌'},
+    {'categoryId': '1', 'name': '随机'},
+    {'categoryId': '2', 'name': '收藏'},
+    {'categoryId': '3', 'name': '搜索'},
+    {'categoryId': '4', 'name': '列表'},
   ];
 
-  getSongUrl(songData) {
+  getSongUrl(songData, {autoPlay: true}) {
     String url = 'https://c.y.qq.com/base/fcgi-bin/fcg_music_express_mobile3.fcg?format=json205361747&platform=yqq'
         '&cid=205361747&songmid=${songData['songmid']}&filename=C400${songData['songmid']}.m4a&guid=126548448';
     ajax(url, (data) {
@@ -52,7 +56,8 @@ class _QQMusicHomeState extends State<QQMusicHome> with SingleTickerProviderStat
       String vkey = obj['data']['items'][0]['vkey'];
       setState(() {
         playUrl = 'http://ws.stream.qqmusic.qq.com/C400${songData['songmid']}.m4a?fromtag=0&guid=126548448&vkey=$vkey';
-        songName = songData['songname'];
+        currPlaySong = songData;
+        autoPlayBool = autoPlay;
       });
       if (myPlaySongsList.length == 0) {
         changePlayList(songData, true);
@@ -66,6 +71,7 @@ class _QQMusicHomeState extends State<QQMusicHome> with SingleTickerProviderStat
           }
         }
       }
+      saveCurrPlaySong(songData);
     });
   }
 
@@ -152,14 +158,33 @@ class _QQMusicHomeState extends State<QQMusicHome> with SingleTickerProviderStat
     preferences.setString('myPlaySongsList', jsonEncode(arr));
   }
 
+  // 获取当前播放的歌曲
+  getCurrPlaySong() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    String currPlaySongStr = preferences.getString('currPlaySong');
+    if (currPlaySongStr == null) {
+    } else {
+      setState(() {
+        currPlaySong = jsonDecode(currPlaySongStr);
+        getSongUrl(currPlaySong, autoPlay: false);
+      });
+    }
+  }
+
+  // 保存当前播放的歌曲
+  saveCurrPlaySong(currPlaySong) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    preferences.setString('currPlaySong', jsonEncode(currPlaySong));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           title: TabBar(
             labelPadding: EdgeInsets.only(
-              left: 6,
-              right: 6,
+              left: 10,
+              right: 10,
             ),
             isScrollable: true,
             tabs: categoryList.map<Widget>((item) {
@@ -173,17 +198,18 @@ class _QQMusicHomeState extends State<QQMusicHome> with SingleTickerProviderStat
             children: <Widget>[
               Container(
                 height: MediaQuery.of(context).size.height - 40 - 56 - MediaQuery.of(context).padding.top,
-                child: new TabBarView(controller: _tabController, children: <Widget>[
+                child: TabBarView(controller: _tabController, children: <Widget>[
                   NewSongsTop(getSongUrl, changeFavourite, myFavouriteSongs),
                   RandomSongs(getSongUrl, changeFavourite, myFavouriteSongs),
                   MyFavourite(getSongUrl, changeFavourite, myFavouriteSongs),
-                  SearchSongs(getSongUrl, changeFavourite, myFavouriteSongs)
+                  SearchSongs(getSongUrl, changeFavourite, myFavouriteSongs),
+                  PlayList(myPlaySongsList, getSongUrl, changePlayList,currPlaySong)
                 ]),
               ),
               Container(
                   height: 40,
                   decoration: BoxDecoration(border: Border(top: BorderSide(color: Colors.grey, width: 1))),
-                  child: Player(playUrl, songName, myPlaySongsList, getSongUrl, changePlayList))
+                  child: Player(playUrl, autoPlayBool, currPlaySong, myPlaySongsList, getSongUrl, changePlayList))
             ],
           ),
         ));

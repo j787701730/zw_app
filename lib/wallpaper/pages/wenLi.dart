@@ -21,6 +21,7 @@ class _WenLiState extends State<WenLi> with AutomaticKeepAliveClientMixin {
 
   _getList() {
     ajax('http://wallpaper.apc.360.cn/index.php?c=WallPaperAndroid&a=getAppsByCategory&cid=32&start=0&count=20', (data) {
+      if (!mounted) return;
       setState(() {
         dataList = data;
       });

@@ -33,6 +33,7 @@ class _MyFavouriteState extends State<MyFavourite> {
                 count += 1;
                 return Container(
                   padding: EdgeInsets.only(bottom: 6),
+                  height: 40,
                   child: Row(
                     children: <Widget>[
                       Container(
@@ -52,6 +53,7 @@ class _MyFavouriteState extends State<MyFavourite> {
                             },
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
                                 Container(
                                   child: Text(

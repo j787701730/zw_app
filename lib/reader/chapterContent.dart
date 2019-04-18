@@ -24,7 +24,6 @@ class _ChapterContentState extends State<ChapterContent> {
 
   _getChapterContent() {
     ajax('http://chapterup.zhuishushenqi.com/chapter/${widget.props['link']}', (data) {
-      print(data);
       if (!mounted) return;
       setState(() {
 //        mixToc = data['mixToc'];
